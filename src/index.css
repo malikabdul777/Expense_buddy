@@ -1,8 +1,29 @@
-* {
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --lightGrey: #ddd;
+  --darkGrey: #878787;
+  --orange: #ff805d;
+  --green: rgb(19, 184, 19);
+  --orange-gradient: linear-gradient(
+    268.35deg,
+    rgba(255, 70, 70, 0.99) 3.47%,
+    rgba(255, 114, 70, 0.99) 60.18%
+  );
+
+  accent-color: var(--black);
 }
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Poppins", sans-serif;
 }

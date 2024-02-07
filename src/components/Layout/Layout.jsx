@@ -2,6 +2,7 @@
 
 // Thirdparty
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { CiBellOn } from "react-icons/ci";
 
 // Utils
 
@@ -21,6 +22,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 // Styles
 import styles from "./Layout.module.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 // Local enums
 
@@ -32,11 +34,20 @@ const Layout = () => {
   const { pathname } = useLocation();
 
   return (
-    <div>
+    <div className={styles.container}>
       {pathname === "/" && <Navigate to="/dashboard" />}
-      Layout
-      <div>
-        <Outlet />
+      <Sidebar />
+      <div className={styles.dashboard}>
+        <div className={styles.header}>
+          <p className={styles.heading}>Welcome, Abdul!</p>
+
+          <div className={styles.notificationContainer}>
+            <CiBellOn size={25} className={styles.bellIcon} />
+          </div>
+        </div>
+        <div className={styles.outlet}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

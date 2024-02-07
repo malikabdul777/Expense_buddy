@@ -1,0 +1,57 @@
+.container {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  height: 100vh;
+  width: 20rem;
+  border-right: 0.2rem solid var(--lightGrey);
+}
+.logo {
+  height: 10rem;
+  object-fit: contain;
+  margin-top: 2rem;
+}
+.menu {
+  margin-top: 5rem;
+  padding-inline: 5rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.navLink {
+  text-decoration: none;
+  margin-block: 2rem;
+}
+.item {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: var(--darkGrey);
+  text-decoration: none;
+  width: 100%;
+}
+.navLinkText {
+  margin-left: 1rem;
+  text-decoration: none;
+}
+.activeNavLink {
+  color: var(--black);
+}
+
+.toolsContainer {
+  width: 100%;
+  padding-inline: 3rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 5rem;
+}
+.toolsHeading {
+  font-size: 1.8rem;
+  color: var(--darkGrey);
+  font-size: 1.6rem;
+}
