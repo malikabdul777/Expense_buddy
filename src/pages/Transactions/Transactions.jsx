@@ -19,6 +19,7 @@
 // Interfaces
 
 // Styles
+import { useSelector } from "react-redux";
 import styles from "./Transactions.module.css";
 
 // Local enums
@@ -28,7 +29,9 @@ import styles from "./Transactions.module.css";
 // Local Interfaces
 
 const Transactions = () => {
-  return <div>Transactions</div>;
+  const value = useSelector((state) => state.counter.value);
+
+  return <div>Transactions - {value}</div>;
 };
 
 export default Transactions;
