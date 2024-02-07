@@ -1,4 +1,5 @@
 // React
+import { useState, useEffect } from "react";
 
 // Thirdparty
 
@@ -21,6 +22,7 @@ import data from "../../data/data_updated";
 
 // Styles
 import styles from "./Dashboard.module.css";
+import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 
 // Local enums
 
@@ -29,55 +31,29 @@ import styles from "./Dashboard.module.css";
 // Local Interfaces
 
 const Dashboard = () => {
-  useEffect(() => {
-    let userData = data;
-
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
-
-    const thisMonthsTransactions = userData.transactions.filter(
-      (currentTransaction) => {
-        console.log(currentTransaction.date);
-      }
-    );
-  }, []);
-
-  return (
-    <div className={styles.container}>
-      <div className={styles.leftContainer}>
-        <div className={styles.statsOverviewCardsContainer}>
-          <div className={styles.statsOverviewCard}></div>
-          <div className={styles.statsOverviewCard}></div>
-        </div>
-      </div>
-      <div className={styles.rightContainer}></div>
-    </div>
-  );
-};
-
-export default Dashboard;
-
-import React, { useState, useEffect } from "react";
-
-const TransactionsComponent = ({ transactions }) => {
   const [monthlySummary, setMonthlySummary] = useState({
     income: 0,
     expenses: 0,
   });
 
+  let userData = data;
+
   useEffect(() => {
-    const currentMonth = new Date().getMonth(); // January is 0!
+    const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
 
-    const filteredTransactions = transactions.filter((transaction) => {
-      const transactionDate = new Date(transaction.date);
-      return (
-        transactionDate.getMonth() === currentMonth &&
-        transactionDate.getFullYear() === currentYear
-      );
-    });
+    const thisMonthsTransactions = userData.transactions.filter(
+      (currentTransaction) => {
+        const transactionDate = new Date(currentTransaction.date);
 
-    const summary = filteredTransactions.reduce(
+        return (
+          transactionDate.getMonth() === currentMonth &&
+          transactionDate.getFullYear() === currentYear
+        );
+      }
+    );
+
+    const filteredTransactions = thisMonthsTransactions.reduce(
       (acc, transaction) => {
         if (transaction.type === "credit") {
           acc.income += transaction.amount;
@@ -89,14 +65,32 @@ const TransactionsComponent = ({ transactions }) => {
       { income: 0, expenses: 0 }
     );
 
-    setMonthlySummary(summary);
-  }, [transactions]);
+    // console.log(filteredTransactions);
+
+    setMonthlySummary(filteredTransactions);
+  }, [userData]);
 
   return (
-    <div>
-      <h2>Monthly Summary</h2>
-      <p>Income: ${monthlySummary.income.toFixed(2)}</p>
-      <p>Expenses: ${monthlySummary.expenses.toFixed(2)}</p>
+    <div className={styles.container}>
+      <div className={styles.leftContainer}>
+        <div className={styles.statsOverviewCardsContainer}>
+          <div className={styles.statsOverviewCard}>
+            <h3>Income</h3>
+            <p>$ {monthlySummary.income.toFixed(2)}</p>
+            <p>This Month</p>
+          </div>
+          <div className={styles.statsOverviewCard}>
+            <h3>Expense</h3>
+            <p>$ {monthlySummary.expenses.toFixed(2)}</p>
+            <p>This Month</p>
+          </div>
+        </div>
+      </div>
+      <div className={styles.rightContainer}>
+        <RecentTransactions data={userData} />
+      </div>
     </div>
   );
 };
+
+export default Dashboard;

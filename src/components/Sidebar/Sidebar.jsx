@@ -37,7 +37,6 @@ import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <div>

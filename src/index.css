@@ -5,15 +5,10 @@
   --white: #fff;
   --lightGrey: #ddd;
   --darkGrey: #878787;
-  --orange: #ff805d;
-  --green: rgb(19, 184, 19);
-  --orange-gradient: linear-gradient(
-    268.35deg,
-    rgba(255, 70, 70, 0.99) 3.47%,
-    rgba(255, 114, 70, 0.99) 60.18%
-  );
+  --error: #df6555;
+  --success: #3fb53b;
 
-  accent-color: var(--black);
+  --accentColor: #002f82;
 }
 
 * {
@@ -26,4 +21,25 @@ html {
 }
 body {
   font-family: "Poppins", sans-serif;
+}
+
+.errorColor {
+  color: var(--error);
+}
+.successColor {
+  color: var(--success);
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+::-webkit-scrollbar-track {
+  background: var(--darkGrey);
+  border-radius: 1rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--lightGrey);
+  border-radius: 1rem;
+  border: 0.1rem solid var(--darkGrey);
 }

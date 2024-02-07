@@ -10,17 +10,28 @@
   flex: 2;
   height: 120%;
 }
-.rightContainer {
-  flex: 1;
-}
+
 .statsOverviewCardsContainer {
   display: flex;
 }
 .statsOverviewCard {
   height: 15rem;
   width: 30rem;
-
+  padding: 2rem;
   border-radius: 2rem;
+}
+.statsOverviewCard h3 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1.8rem;
+}
+.statsOverviewCard p:first-of-type {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.statsOverviewCard p:nth-of-type(2) {
+  font-size: 1.4rem;
+  font-weight: 300;
 }
 .statsOverviewCard:first-of-type {
   margin-right: 4rem;
@@ -28,4 +39,8 @@
 }
 .statsOverviewCard:nth-child(2) {
   background-color: rgba(223, 101, 85, 0.23);
+}
+.rightContainer {
+  flex: 1.1;
+  overflow-y: scroll;
 }
