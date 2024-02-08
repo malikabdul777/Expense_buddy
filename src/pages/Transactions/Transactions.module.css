@@ -1,0 +1,16 @@
+.container {
+  padding: 10px 20px;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.tableContainer {
+  padding: 10px 20px;
+  width: 100%;
+  margin-inline: auto;
+}
+.viewIcon {
+  cursor: pointer;
+}

@@ -1,21 +1,21 @@
 .container {
-  width: 20rem;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   height: 100vh;
-  width: 20rem;
-  border-right: 0.2rem solid var(--lightGrey);
+  width: 200px;
+  border-right: 2px solid var(--lightGrey);
 }
 .logo {
-  height: 10rem;
+  height: 100px;
   object-fit: contain;
-  margin-top: 2rem;
+  margin-top: 20px;
 }
 .menu {
-  margin-top: 5rem;
-  padding-inline: 5rem;
+  margin-top: 50px;
+  padding-inline: 50px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -23,18 +23,18 @@
 }
 .navLink {
   text-decoration: none;
-  margin-block: 2rem;
+  margin-block: 20px;
 }
 .item {
   display: flex;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 14px;
   color: var(--darkGrey);
   text-decoration: none;
   width: 100%;
 }
 .navLinkText {
-  margin-left: 1rem;
+  margin-left: 10px;
   text-decoration: none;
 }
 .activeNavLink {
@@ -43,15 +43,15 @@
 
 .toolsContainer {
   width: 100%;
-  padding-inline: 3rem;
+  padding-inline: 30px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 5rem;
+  margin-top: 50px;
 }
 .toolsHeading {
-  font-size: 1.8rem;
+  font-size: 18px;
   color: var(--darkGrey);
-  font-size: 1.6rem;
+  font-size: 16px;
 }

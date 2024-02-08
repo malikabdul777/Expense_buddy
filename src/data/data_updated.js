@@ -34,6 +34,7 @@ export default {
   accounts: ["Costco card", "debit card", "credit card", "bank account"],
   transactions: [
     {
+      id: "1",
       amount: 39.36,
       type: "debit",
       date: "2024-02-21T11:26:50",
@@ -43,6 +44,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "2",
       amount: 424.85,
       type: "credit",
       date: "2024-02-27T17:46:40",
@@ -52,6 +54,7 @@ export default {
       title: "Health Credit",
     },
     {
+      id: "3",
       amount: 219.66,
       type: "credit",
       date: "2024-02-08T20:39:24",
@@ -61,6 +64,7 @@ export default {
       title: "Entertainment Credit",
     },
     {
+      id: "4",
       amount: 357.97,
       type: "debit",
       date: "2024-01-06T04:02:40",
@@ -70,6 +74,7 @@ export default {
       title: "Health Debit",
     },
     {
+      id: "5",
       amount: 418.54,
       type: "debit",
       date: "2024-02-28T12:55:40",
@@ -79,6 +84,7 @@ export default {
       title: "Entertainment Debit",
     },
     {
+      id: "6",
       amount: 22.38,
       type: "debit",
       date: "2024-02-06T06:08:50",
@@ -88,6 +94,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "7",
       amount: 310.16,
       type: "credit",
       date: "2024-02-27T12:17:35",
@@ -97,6 +104,7 @@ export default {
       title: "Travel Credit",
     },
     {
+      id: "8",
       amount: 239.21,
       type: "debit",
       date: "2024-02-30T05:20:36",
@@ -106,6 +114,7 @@ export default {
       title: "Health Debit",
     },
     {
+      id: "9",
       amount: 280.2,
       type: "credit",
       date: "2024-02-27T11:25:12",
@@ -115,6 +124,7 @@ export default {
       title: "Utilities Credit",
     },
     {
+      id: "10",
       amount: 419.58,
       type: "debit",
       date: "2024-02-30T06:36:39",
@@ -124,6 +134,7 @@ export default {
       title: "Food Debit",
     },
     {
+      id: "11",
       amount: 415.24,
       type: "credit",
       date: "2024-02-04T15:52:53",
@@ -133,6 +144,7 @@ export default {
       title: "Grocery Credit",
     },
     {
+      id: "12",
       amount: 319.68,
       type: "debit",
       date: "2024-02-11T15:34:43",
@@ -142,6 +154,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "13",
       amount: 310.62,
       type: "debit",
       date: "2024-02-05T11:24:38",
@@ -151,6 +164,7 @@ export default {
       title: "Health Debit",
     },
     {
+      id: "14",
       amount: 498.51,
       type: "debit",
       date: "2024-02-17T00:07:53",
@@ -160,6 +174,7 @@ export default {
       title: "Utilities Debit",
     },
     {
+      id: "15",
       amount: 404.59,
       type: "credit",
       date: "2024-02-27T18:51:25",
@@ -169,6 +184,7 @@ export default {
       title: "Utilities Credit",
     },
     {
+      id: "16",
       amount: 419.69,
       type: "debit",
       date: "2024-02-14T14:46:04",
@@ -178,6 +194,7 @@ export default {
       title: "Food Debit",
     },
     {
+      id: "17",
       amount: 221.39,
       type: "debit",
       date: "2024-02-28T02:26:28",
@@ -187,6 +204,7 @@ export default {
       title: "Utilities Debit",
     },
     {
+      id: "18",
       amount: 433.47,
       type: "debit",
       date: "2024-02-28T16:11:28",
@@ -196,15 +214,18 @@ export default {
       title: "Health Debit",
     },
     {
+      id: "19",
       amount: 30.57,
       type: "debit",
       date: "2024-02-08T23:21:02",
       notes: "This is a debit transaction",
       category: "Travel",
+
       account: "Costco card",
       title: "Travel Debit",
     },
     {
+      id: "20",
       amount: 364.1,
       type: "credit",
       date: "2024-02-02T17:52:40",
@@ -214,6 +235,7 @@ export default {
       title: "Utilities Credit",
     },
     {
+      id: "21",
       amount: 116.82,
       type: "credit",
       date: "2024-02-03T11:49:12",
@@ -223,6 +245,7 @@ export default {
       title: "Entertainment Credit",
     },
     {
+      id: "22",
       amount: 400.08,
       type: "credit",
       date: "2024-02-14T14:31:28",
@@ -232,6 +255,7 @@ export default {
       title: "Grocery Credit",
     },
     {
+      id: "23",
       amount: 214.42,
       type: "debit",
       date: "2023-06-11T17:52:47",
@@ -241,6 +265,7 @@ export default {
       title: "Food Debit",
     },
     {
+      id: "24",
       amount: 260.88,
       type: "debit",
       date: "2023-06-16T20:15:11",
@@ -250,6 +275,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "25",
       amount: 356.3,
       type: "credit",
       date: "2023-03-17T19:55:06",
@@ -259,6 +285,7 @@ export default {
       title: "Grocery Credit",
     },
     {
+      id: "26",
       amount: 127.76,
       type: "debit",
       date: "2023-05-05T17:46:17",
@@ -268,6 +295,7 @@ export default {
       title: "Food Debit",
     },
     {
+      id: "27",
       amount: 275.26,
       type: "debit",
       date: "2023-07-13T06:02:44",
@@ -277,6 +305,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "28",
       amount: 217.0,
       type: "debit",
       date: "2023-10-18T22:25:23",
@@ -286,6 +315,7 @@ export default {
       title: "Grocery Debit",
     },
     {
+      id: "29",
       amount: 266.19,
       type: "credit",
       date: "2023-02-03T11:59:40",
@@ -295,6 +325,7 @@ export default {
       title: "Travel Credit",
     },
     {
+      id: "30",
       amount: 19.66,
       type: "debit",
       date: "2023-05-29T12:19:35",
