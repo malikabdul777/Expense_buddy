@@ -9,9 +9,9 @@
   border-right: 2px solid var(--lightGrey);
 }
 .logo {
-  height: 100px;
+  height: 50px;
   object-fit: contain;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .menu {
   margin-top: 50px;
@@ -23,13 +23,19 @@
 }
 .navLink {
   text-decoration: none;
-  margin-block: 20px;
+  margin-block: 12px;
+  width: 145px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  border-radius: 10px;
+  color: var(--darkGrey);
 }
 .item {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: var(--darkGrey);
   text-decoration: none;
   width: 100%;
 }
@@ -39,8 +45,12 @@
 }
 .activeNavLink {
   color: var(--black);
+  background-color: var(--accentColorLight);
+  font-weight: 500;
 }
-
+.activeIcon {
+  color: var(--accentColor);
+}
 .toolsContainer {
   width: 100%;
   padding-inline: 30px;

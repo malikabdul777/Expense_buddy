@@ -9,15 +9,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
 
-const EBDateRangePicker = ({ className }) => {
-  const [date, setDate] = useState({
-    from: addDays(new Date(), -30),
-    to: new Date(),
-  });
-
-  console.log(date);
+const EBDateRangePicker = (props) => {
+  const { date, setDate, className } = props;
 
   return (
     <div className={cn("grid gap-2", className)}>

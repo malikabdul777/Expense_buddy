@@ -11,7 +11,8 @@
   --error: #df6555;
   --success: #3fb53b;
 
-  --accentColor: #002f82;
+  --accentColor: #7a45eb;
+  --accentColorLight: #7a45eb23;
 }
 
 * {
@@ -41,14 +42,14 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
 }
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: var(--darkGrey);
   border-radius: 10px;
-}
+} */
 ::-webkit-scrollbar-thumb {
-  background: var(--lightGrey);
+  background: var(--darkGrey);
   border-radius: 10px;
-  border: 1px solid var(--darkGrey);
+  border: 1px solid var(--white);
 }
 
 @layer base {

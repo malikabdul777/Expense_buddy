@@ -16,14 +16,14 @@
 }
 .statsOverviewCard {
   height: 150px;
-  width: 300px;
   padding: 20px;
   border-radius: 20px;
+  margin-right: 20px;
 }
 .statsOverviewCard h3 {
   font-size: 20px;
   font-weight: 400;
-  margin-bottom: 18px;
+  margin-left: 15px;
 }
 .statsOverviewCard p:first-of-type {
   font-size: 20px;
@@ -34,13 +34,39 @@
   font-weight: 300;
 }
 .statsOverviewCard:first-of-type {
-  margin-right: 40px;
   background-color: rgba(63, 181, 59, 0.11);
+  flex: 1;
 }
 .statsOverviewCard:nth-child(2) {
   background-color: rgba(223, 101, 85, 0.23);
+  flex: 1;
 }
 .rightContainer {
   flex: 1.1;
   overflow-y: scroll;
+}
+.statsOverviewCard:nth-of-type(3) {
+  background-color: var(--accentColorLight);
+  flex: 1;
+}
+.overviewHeadingContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.overviewCardIconContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: var(--white);
+  background-color: #73ca6c;
+}
+.expenseIconContainer {
+  background-color: #eb9a8f;
+}
+.balanceIconContainer {
+  background-color: #b696f7;
 }

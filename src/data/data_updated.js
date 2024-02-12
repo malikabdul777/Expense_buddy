@@ -34,16 +34,6 @@ export default {
   accounts: ["Costco card", "debit card", "credit card", "bank account"],
   transactions: [
     {
-      id: "1",
-      amount: 39.36,
-      type: "debit",
-      date: "2024-02-21T11:26:50",
-      notes: "This is a debit transaction",
-      category: "Grocery",
-      account: "Credit card",
-      title: "Grocery Debit",
-    },
-    {
       id: "2",
       amount: 424.85,
       type: "credit",

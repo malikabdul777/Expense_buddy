@@ -5,12 +5,30 @@
   padding-bottom: 150px;
   overflow-y: scroll;
   overflow-x: hidden;
+  display: flex;
 }
 .tableContainer {
   padding: 10px 20px;
-  width: 100%;
+  width: 95%;
   margin-inline: auto;
 }
 .viewIcon {
   cursor: pointer;
+}
+.tableContainerMain {
+  width: 95% !important;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex: 4;
+  margin-right: 3rem;
+}
+.tableFilterContainer {
+  flex: 1;
+}
+.tableFilterTopBar {
+  margin-inline: 2rem;
+}
+.bottomTableNavigationBar {
+  margin-right: 2rem;
 }

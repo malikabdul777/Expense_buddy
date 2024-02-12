@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 
 // Thirdparty
+import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowDownRight } from "react-icons/fi";
+import { RiEqualLine } from "react-icons/ri";
 
 // Utils
 import data from "../../data/data_updated";
@@ -13,6 +16,7 @@ import data from "../../data/data_updated";
 // CustomHooks
 
 // Components
+import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 
 // Constants
 
@@ -22,7 +26,6 @@ import data from "../../data/data_updated";
 
 // Styles
 import styles from "./Dashboard.module.css";
-import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 
 // Local enums
 
@@ -75,16 +78,43 @@ const Dashboard = () => {
       <div className={styles.leftContainer}>
         <div className={styles.statsOverviewCardsContainer}>
           <div className={styles.statsOverviewCard}>
-            <h3>Income</h3>
+            <div className={styles.overviewHeadingContainer}>
+              <div className={styles.overviewCardIconContainer}>
+                <FiArrowUpRight size={22} />
+              </div>
+              <h3>Income</h3>
+            </div>
             <p>$ {monthlySummary.income.toFixed(2)}</p>
             <p>This Month</p>
           </div>
           <div className={styles.statsOverviewCard}>
-            <h3>Expense</h3>
+            <div className={styles.overviewHeadingContainer}>
+              <div
+                className={`${styles.overviewCardIconContainer} ${styles.expenseIconContainer}`}
+              >
+                <FiArrowDownRight size={22} />
+              </div>
+              <h3>Expense</h3>
+            </div>
             <p>$ {monthlySummary.expenses.toFixed(2)}</p>
             <p>This Month</p>
           </div>
+          <div className={styles.statsOverviewCard}>
+            <div className={styles.overviewHeadingContainer}>
+              <div
+                className={`${styles.overviewCardIconContainer} ${styles.balanceIconContainer}`}
+              >
+                <RiEqualLine size={22} />
+              </div>
+              <h3>Balance</h3>
+            </div>
+            <p>
+              $ {(monthlySummary.income - monthlySummary.expenses).toFixed(2)}
+            </p>
+            <p>This Month</p>
+          </div>
         </div>
+        <div></div>
       </div>
       <div className={styles.rightContainer}>
         <RecentTransactions data={userData} />
