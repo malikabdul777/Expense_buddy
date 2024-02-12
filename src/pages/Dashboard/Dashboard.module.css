@@ -4,7 +4,7 @@
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-top: 4rem;
+  margin-top: 40px;
 }
 .leftContainer {
   flex: 2;
@@ -15,32 +15,58 @@
   display: flex;
 }
 .statsOverviewCard {
-  height: 15rem;
-  width: 30rem;
-  padding: 2rem;
-  border-radius: 2rem;
+  height: 150px;
+  padding: 20px;
+  border-radius: 20px;
+  margin-right: 20px;
 }
 .statsOverviewCard h3 {
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 400;
-  margin-bottom: 1.8rem;
+  margin-left: 15px;
 }
 .statsOverviewCard p:first-of-type {
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 600;
 }
 .statsOverviewCard p:nth-of-type(2) {
-  font-size: 1.4rem;
+  font-size: 14px;
   font-weight: 300;
 }
 .statsOverviewCard:first-of-type {
-  margin-right: 4rem;
   background-color: rgba(63, 181, 59, 0.11);
+  flex: 1;
 }
 .statsOverviewCard:nth-child(2) {
   background-color: rgba(223, 101, 85, 0.23);
+  flex: 1;
 }
 .rightContainer {
   flex: 1.1;
   overflow-y: scroll;
+}
+.statsOverviewCard:nth-of-type(3) {
+  background-color: var(--accentColorLight);
+  flex: 1;
+}
+.overviewHeadingContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.overviewCardIconContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: var(--white);
+  background-color: #73ca6c;
+}
+.expenseIconContainer {
+  background-color: #eb9a8f;
+}
+.balanceIconContainer {
+  background-color: #b696f7;
 }
