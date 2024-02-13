@@ -22,7 +22,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 
 // Styles
 import styles from "./RecentTransactions.module.css";
-import TextWithEllipsis from "../TextWithEllipsis/TextWithEllipsis";
+import TextWithEllipsis from "../ui/TextWithEllipsis/TextWithEllipsis";
 import { useNavigate } from "react-router";
 
 // Local enums
@@ -40,7 +40,7 @@ const RecentTransactions = (props) => {
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
-    <div>
+    <>
       <h3 className={styles.heading}>Recent Transactions</h3>
       {recentTransactions.map((currEle) => (
         <div className={styles.recentTransactionCard} key={currEle.date}>
@@ -97,7 +97,7 @@ const RecentTransactions = (props) => {
         <p>See all Transaction </p>
         <FaLongArrowAltRight />
       </div>
-    </div>
+    </>
   );
 };
 

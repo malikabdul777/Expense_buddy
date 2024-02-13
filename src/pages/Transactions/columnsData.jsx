@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import TextWithEllipsis from "@/components/TextWithEllipsis/TextWithEllipsis";
+import TextWithEllipsis from "@/components/ui/TextWithEllipsis/TextWithEllipsis";
 
 import {
   CaretSortIcon,
@@ -145,11 +145,14 @@ const columnsData = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}
             >
-              Copy payment ID
+              View Item
             </DropdownMenuItem>
+            <DropdownMenuItem>Update Item</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+
+            <DropdownMenuItem className={"errorColor"}>
+              Delete Item
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

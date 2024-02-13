@@ -17,6 +17,7 @@ import data from "../../data/data_updated";
 
 // Components
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
+import DashboardChart from "@/components/DashboardChart/DashboardChart";
 
 // Constants
 
@@ -38,6 +39,7 @@ const Dashboard = () => {
     income: 0,
     expenses: 0,
   });
+  const [activeChartTab, setActiveChartTab] = useState("Month");
 
   let userData = data;
 
@@ -67,8 +69,6 @@ const Dashboard = () => {
       },
       { income: 0, expenses: 0 }
     );
-
-    // console.log(filteredTransactions);
 
     setMonthlySummary(filteredTransactions);
   }, [userData]);
@@ -114,7 +114,47 @@ const Dashboard = () => {
             <p>This Month</p>
           </div>
         </div>
-        <div></div>
+        <div className={styles.dashboardChartContainer}>
+          <div className={styles.chartHeader}>
+            <div>
+              <h3>Report for this Month</h3>
+              <div className={styles.legendsContainer}>
+                <div className={styles.legendContainer}>
+                  <div className={styles.legendIndicator}></div>
+                  <p>Income</p>
+                </div>
+                <div className={styles.legendContainer}>
+                  <div
+                    className={`${styles.legendIndicator} ${styles.expenseLegendIndicator}`}
+                  ></div>
+                  <p>Expense</p>
+                </div>
+              </div>
+            </div>
+            <div className={styles.tabsContainer}>
+              <div
+                className={`${styles.tab} ${
+                  activeChartTab === "Week" ? styles.activeTab : null
+                }`}
+                onClick={() => setActiveChartTab("Week")}
+              >
+                <p>Week</p>
+              </div>
+              <div
+                className={`${styles.tab} ${
+                  activeChartTab === "Month" ? styles.activeTab : null
+                }`}
+                onClick={() => setActiveChartTab("Month")}
+              >
+                <p>Month</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.dashboardChart}>
+            <DashboardChart />
+          </div>
+        </div>
       </div>
       <div className={styles.rightContainer}>
         <RecentTransactions data={userData} />

@@ -4,13 +4,13 @@
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .leftContainer {
-  flex: 2;
+  flex: 1.8;
   height: 120%;
+  margin-right: 20px;
 }
-
 .statsOverviewCardsContainer {
   display: flex;
 }
@@ -42,7 +42,7 @@
   flex: 1;
 }
 .rightContainer {
-  flex: 1.1;
+  flex: 1;
   overflow-y: scroll;
 }
 .statsOverviewCard:nth-of-type(3) {
@@ -69,4 +69,79 @@
 }
 .balanceIconContainer {
   background-color: #b696f7;
+}
+.dashboardChart {
+  width: 98%;
+  height: 350px;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-end;
+}
+.dashboardChartContainer {
+  background-color: var(--white);
+  border-radius: 10px;
+  border: 0.5px solid var(--lightGrey);
+  box-shadow: 0px 10px 12px -9px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  padding-inline: 10px;
+  padding-block: 10px 15px;
+}
+.legendsContainer {
+  display: flex;
+  font-size: 14px;
+  color: var(--darkGrey);
+  margin-top: 15px;
+}
+.legendIndicator {
+  height: 10px;
+  width: 10px;
+  background: var(--success);
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.expenseLegendIndicator {
+  background: var(--error);
+}
+.legendContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+.chartHeader {
+  margin-top: 10px;
+  margin-inline: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.chartHeader > h3 {
+  font-weight: 600;
+}
+.tabsContainer {
+  display: flex;
+  background-color: #f4f4f5;
+  width: 170px;
+  height: 20px;
+  padding: 20px 5px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 0.5px solid var(--lightGrey);
+}
+.tab {
+  width: 100px;
+  height: 90%;
+  color: var(--darkGrey);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+.activeTab {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0px 10px 12px -9px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
 }
