@@ -33,9 +33,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import moment from "moment";
 
 // Utils
-import data from "../../data/data_updated";
+import dummyData from "../../data/data_updated";
 import columnsData from "./columnsData";
 
 // APISlices
@@ -56,6 +57,7 @@ import EBDateRangePicker from "@/components/EBDateRangePicker/EBDateRangePicker"
 // Styles
 import styles from "./Transactions.module.css";
 import TransactionsFilterSideBar from "@/components/TransactionsFilterSideBar/TransactionsFilterSideBar";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -66,29 +68,43 @@ const Transactions = () => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
+
   const [date, setDate] = useState({
     from: addDays(new Date(), -30),
     to: new Date(),
   });
   const [dateFilteredData, setDateFilteredData] = useState([]);
 
+  // Fetching Transactions
+  const { data, isSuccess, isError, isLoading, error } =
+    useGetAllTransactionsQuery();
+
+  // console.log(data?.data.transaction);
+
   useEffect(() => {
-    const filteredData = data.transactions.filter((transaction) => {
-      const transactionDate = new Date(transaction.date);
+    const filteredData = data?.data.transaction.filter((transaction) => {
+      // Formatting Date from server
+      const isoDate = moment.utc(transaction.date);
+      const formattedDate = moment(isoDate._d).format("L");
+
+      console.log(formattedDate);
       if (
         date &&
         date.to !== undefined &&
         date.from !== undefined &&
         date !== undefined
       ) {
-        return transactionDate >= date.from && transactionDate <= date.to;
+        return (
+          formattedDate >= moment(date.from).format("L") &&
+          formattedDate <= moment(date.to).format("L")
+        );
       } else {
         return null;
       }
     });
 
     setDateFilteredData(filteredData);
-  }, [date]);
+  }, [date, data?.data]);
 
   const table = useReactTable({
     data: dateFilteredData,

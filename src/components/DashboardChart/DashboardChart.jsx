@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import styles from "./DashboardChart.module.css";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/transactionsApiSlice";
 
 const data = [
   { name: "1", income: 0, expense: 80 },
@@ -42,8 +43,12 @@ const data = [
   { name: "30", income: 0, expense: 0 },
 ];
 const CustomTooltip = ({ active, payload, label }) => {
+  // const { data } = useGetAllTransactionsQuery();
+
+  // console.log(data.data.transaction);
+
   if (active && payload && payload.length) {
-    console.log(payload);
+    // console.log(payload);
     return (
       <div className={styles.tooltipContainer}>
         <div>

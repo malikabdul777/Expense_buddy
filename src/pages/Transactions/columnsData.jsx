@@ -20,17 +20,31 @@ import { FaRegEye } from "react-icons/fa";
 import data from "../../data/data_updated";
 
 import styles from "./Transactions.module.css";
+import { useState } from "react";
+import ViewTransactionModal from "@/components/ViewTransactionModal/ViewTransactionModal";
+import EditTransactionModal from "@/components/EditTransactionsModal/EditTransactionModal";
+import moment from "moment";
 
 const categories = data.categories;
 const columnsData = [
   {
     id: "view",
     header: () => <div>View</div>,
-    cell: ({ row }) => (
-      <div className={`flex items-center ml-4 ${styles.viewIcon}`}>
-        <FaRegEye />
-      </div>
-    ),
+    cell: ({ row }) => {
+      const [viewTransactionModalOpen, setViewTransactionModalOpen] =
+        useState(false);
+
+      return (
+        <div className={`flex items-center ml-4 ${styles.viewIcon}`}>
+          <ViewTransactionModal
+            open={viewTransactionModalOpen}
+            setOpen={setViewTransactionModalOpen}
+            data={row.original}
+          />
+          <FaRegEye onClick={() => setViewTransactionModalOpen(true)} />
+        </div>
+      );
+    },
   },
   ,
   {
@@ -108,7 +122,7 @@ const columnsData = [
     ),
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
@@ -120,20 +134,34 @@ const columnsData = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="lowercase">
-        {new Date(row.getValue("date")).toLocaleDateString()}
-      </div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <div className="lowercase">
+          {moment(row.getValue("createdAt")).format("L")}
+        </div>
+      );
+    },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
-
+      const [viewTransactionModalOpen, setViewTransactionModalOpen] =
+        useState(false);
+      const [editTransactionModalOpen, setEditTransactionModalOpen] =
+        useState(false);
       return (
         <DropdownMenu>
+          <ViewTransactionModal
+            open={viewTransactionModalOpen}
+            setOpen={setViewTransactionModalOpen}
+            data={row.original}
+          />
+          <EditTransactionModal
+            open={editTransactionModalOpen}
+            setOpen={setEditTransactionModalOpen}
+            data={row.original}
+          />
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
@@ -142,12 +170,12 @@ const columnsData = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
+            <DropdownMenuItem onClick={() => setViewTransactionModalOpen(true)}>
               View Item
             </DropdownMenuItem>
-            <DropdownMenuItem>Update Item</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setEditTransactionModalOpen(true)}>
+              Update Item
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
 
             <DropdownMenuItem className={"errorColor"}>

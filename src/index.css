@@ -32,10 +32,10 @@ body {
 }
 
 .errorColor {
-  color: var(--error);
+  color: var(--error) !important;
 }
 .successColor {
-  color: var(--success);
+  color: var(--success) !important;
 }
 
 /* Scroll Bar */
@@ -123,4 +123,31 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.visibilityNone {
+  visibility: hidden;
+}
+.visible {
+  visibility: visible;
+}
+
+/* Remove the up/down buttons for input type number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/*Disabled input background color change*/
+input:disabled {
+  background-color: #fff;
 }

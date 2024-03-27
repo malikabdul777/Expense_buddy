@@ -27,6 +27,7 @@ import DashboardChart from "@/components/DashboardChart/DashboardChart";
 
 // Styles
 import styles from "./Dashboard.module.css";
+import AddTransactionButton from "@/components/AddTransactionButton/AddTransactionButton";
 
 // Local enums
 

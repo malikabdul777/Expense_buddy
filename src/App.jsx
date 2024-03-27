@@ -10,6 +10,10 @@ import Transactions from "./pages/Transactions/Transactions";
 import Accounts from "./pages/Accounts/Accounts";
 import Settings from "./pages/Settings/Settings";
 import Help from "./pages/Help/Help";
+import AddTransactionButton from "./components/AddTransactionButton/AddTransactionButton";
+
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -26,6 +30,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer position="bottom-center" />
+      <AddTransactionButton />
     </div>
   );
 }
