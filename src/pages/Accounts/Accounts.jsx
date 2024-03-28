@@ -98,7 +98,7 @@ const Accounts = () => {
       </form>
       <div>
         <h2 className={styles.accountSubHeading}>Existing Accounts</h2>
-        {accountsData.data.accounts.map((account) => (
+        {accountsData?.data?.accounts.map((account) => (
           <div className={styles.accountCard} key={account._id}>
             <p>{account.name}</p>
           </div>
