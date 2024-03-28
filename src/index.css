@@ -31,27 +31,54 @@ body {
   font-size: 16px;
 }
 
+/* Helper classes */
 .errorColor {
   color: var(--error) !important;
 }
 .successColor {
   color: var(--success) !important;
 }
+.visibilityNone {
+  visibility: hidden;
+}
+.visible {
+  visibility: visible;
+}
+.cursorPointer {
+  cursor: pointer;
+}
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
   width: 10px;
 }
-/* ::-webkit-scrollbar-track {
-  background: var(--darkGrey);
-  border-radius: 10px;
-} */
 ::-webkit-scrollbar-thumb {
   background: var(--darkGrey);
   border-radius: 10px;
   border: 1px solid var(--white);
 }
 
+/* Remove the up/down buttons for input type number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/*Disabled input background color change*/
+input:disabled {
+  background-color: #fff;
+}
+
+/* ShadCn UI */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -123,31 +150,4 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.visibilityNone {
-  visibility: hidden;
-}
-.visible {
-  visibility: visible;
-}
-
-/* Remove the up/down buttons for input type number */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Change the white to any color */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
-
-/*Disabled input background color change*/
-input:disabled {
-  background-color: #fff;
 }

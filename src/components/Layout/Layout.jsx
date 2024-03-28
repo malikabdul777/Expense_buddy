@@ -22,7 +22,9 @@ import { CiBellOn } from "react-icons/ci";
 
 // Styles
 import styles from "./Layout.module.css";
+import "./layout.css";
 import Sidebar from "../Sidebar/Sidebar";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -32,6 +34,10 @@ import Sidebar from "../Sidebar/Sidebar";
 
 const Layout = () => {
   const { pathname } = useLocation();
+
+  // Fetching Transactions from server
+  const { data, isSuccess, isError, isLoading, error } =
+    useGetAllTransactionsQuery();
 
   return (
     <div className={styles.container}>
@@ -46,7 +52,15 @@ const Layout = () => {
           </div>
         </div>
         <div className={styles.outlet}>
-          <Outlet />
+          {!data && (
+            <div className={styles.dataLoadingContainer}>
+              <div className="simple-spinner">
+                <span></span>
+              </div>
+              <p className={styles.loadingText}>Data is being loaded...</p>
+            </div>
+          )}
+          {data && <Outlet />}
         </div>
       </div>
     </div>

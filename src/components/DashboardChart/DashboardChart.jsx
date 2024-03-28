@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import styles from "./DashboardChart.module.css";
-import { useGetAllTransactionsQuery } from "@/store/apiSlices/transactionsApiSlice";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 const data = [
   { name: "1", income: 0, expense: 80 },

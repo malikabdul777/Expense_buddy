@@ -7,7 +7,7 @@ import { FiArrowDownRight } from "react-icons/fi";
 import { RiEqualLine } from "react-icons/ri";
 
 // Utils
-import data from "../../data/data_updated";
+import { default as userData } from "../../data/data_updated";
 
 // APISlices
 
@@ -28,6 +28,7 @@ import DashboardChart from "@/components/DashboardChart/DashboardChart";
 // Styles
 import styles from "./Dashboard.module.css";
 import AddTransactionButton from "@/components/AddTransactionButton/AddTransactionButton";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -42,15 +43,20 @@ const Dashboard = () => {
   });
   const [activeChartTab, setActiveChartTab] = useState("Month");
 
-  let userData = data;
+  // Fetching Transactions from server
+  const { data, isSuccess, isError, isLoading, error } =
+    useGetAllTransactionsQuery();
+
+  // console.log("Data from API", data.data.transaction);
 
   useEffect(() => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
 
-    const thisMonthsTransactions = userData.transactions.filter(
+    // Getting current month transactions
+    const thisMonthsTransactions = data.data.transaction.filter(
       (currentTransaction) => {
-        const transactionDate = new Date(currentTransaction.date);
+        const transactionDate = new Date(currentTransaction.createdAt);
 
         return (
           transactionDate.getMonth() === currentMonth &&
@@ -59,6 +65,7 @@ const Dashboard = () => {
       }
     );
 
+    // Calculating monthly income and expenses
     const filteredTransactions = thisMonthsTransactions.reduce(
       (acc, transaction) => {
         if (transaction.type === "credit") {
@@ -72,7 +79,7 @@ const Dashboard = () => {
     );
 
     setMonthlySummary(filteredTransactions);
-  }, [userData]);
+  }, [data?.data?.transaction]);
 
   return (
     <div className={styles.container}>
@@ -158,7 +165,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className={styles.rightContainer}>
-        <RecentTransactions data={userData} />
+        <RecentTransactions />
       </div>
     </div>
   );

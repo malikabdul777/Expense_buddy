@@ -13,10 +13,7 @@ import { toast } from "react-toastify";
 // Utils
 
 // APISlices
-import {
-  useCreateTransactionMutation,
-  useGetAllTransactionsQuery,
-} from "@/store/apiSlices/transactionsApiSlice";
+import { useCreateTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Slice
 
@@ -70,8 +67,7 @@ const AddTransactionButton = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const [createTransaction, { isSuccess, isLoading, isError }] =
-    useCreateTransactionMutation();
+  const [createTransaction] = useCreateTransactionMutation();
 
   const formSubmitHandler = async (data) => {
     // Create Transaction

@@ -33,7 +33,7 @@ import TextField from "../ui/TextField/TextField";
 import styles from "./EditTransactionModal.module.css";
 import "./editTransactionModal.css";
 import moment from "moment";
-import { useUpdateTransactionMutation } from "@/store/apiSlices/transactionsApiSlice";
+import { useUpdateTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 

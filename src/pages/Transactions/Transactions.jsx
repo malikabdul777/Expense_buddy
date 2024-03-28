@@ -57,7 +57,7 @@ import EBDateRangePicker from "@/components/EBDateRangePicker/EBDateRangePicker"
 // Styles
 import styles from "./Transactions.module.css";
 import TransactionsFilterSideBar from "@/components/TransactionsFilterSideBar/TransactionsFilterSideBar";
-import { useGetAllTransactionsQuery } from "@/store/apiSlices/transactionsApiSlice";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 

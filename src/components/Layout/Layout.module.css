@@ -37,3 +37,18 @@
 .bellIcon {
   color: var(--black);
 }
+
+.dataLoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: -80px;
+  margin-left: -80px;
+}
+.loadingText {
+  margin-left: 20px;
+  /* font-weight: 600; */
+  font-size: 20px;
+}

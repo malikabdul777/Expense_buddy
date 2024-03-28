@@ -16,6 +16,8 @@ import {
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
 import { FaRegEye } from "react-icons/fa";
+import { MdEditNote } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 
 import data from "../../data/data_updated";
 
@@ -25,7 +27,8 @@ import ViewTransactionModal from "@/components/ViewTransactionModal/ViewTransact
 import EditTransactionModal from "@/components/EditTransactionsModal/EditTransactionModal";
 import moment from "moment";
 import Modal from "react-responsive-modal";
-import { useDeleteTransactionMutation } from "@/store/apiSlices/transactionsApiSlice";
+import { useDeleteTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import { toast } from "react-toastify";
 
 const categories = data.categories;
 const columnsData = [
@@ -224,10 +227,10 @@ const columnsData = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => setViewTransactionModalOpen(true)}>
-              View
+              <FaRegEye className={styles.dropDownIcon} size={14} /> View
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setEditTransactionModalOpen(true)}>
-              Update
+              <MdEditNote className={styles.dropDownIcon} size={18} /> Update
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
@@ -235,6 +238,7 @@ const columnsData = [
               className={"errorColor"}
               onClick={() => setTransactionDeleteModalOpen(true)}
             >
+              <MdDeleteForever className={styles.dropDownIcon} size={18} />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
