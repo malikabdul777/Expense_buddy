@@ -87,7 +87,7 @@ const Transactions = () => {
       const isoDate = moment.utc(transaction.date);
       const formattedDate = moment(isoDate._d).format("L");
 
-      console.log(formattedDate);
+      // console.log(formattedDate);
       if (
         date &&
         date.to !== undefined &&
@@ -181,7 +181,32 @@ const Transactions = () => {
               ))}
             </TableHeader>
             <TableBody>
-              {table.getRowModel().rows?.length ? (
+              {/* If error */}
+              {isError && (
+                <TableRow>
+                  <TableCell
+                    colSpan={columnsData.length}
+                    className="h-24 text-center"
+                  >
+                    {/* {error.message} */}Something went wrong..!
+                  </TableCell>
+                </TableRow>
+              )}
+
+              {/* If loading */}
+              {isLoading && (
+                <TableRow>
+                  <TableCell
+                    colSpan={columnsData.length}
+                    className="h-24 text-center"
+                  >
+                    Data loading....
+                  </TableCell>
+                </TableRow>
+              )}
+
+              {/* If success and have data */}
+              {isSuccess && table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row, index) => (
                   <TableRow
                     key={`${row.id}${index}`}
@@ -203,7 +228,7 @@ const Transactions = () => {
                     colSpan={columnsData.length}
                     className="h-24 text-center"
                   >
-                    No results.
+                    {isLoading || isError ? null : "No results."}
                   </TableCell>
                 </TableRow>
               )}

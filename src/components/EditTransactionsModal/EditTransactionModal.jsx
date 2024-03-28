@@ -33,6 +33,7 @@ import TextField from "../ui/TextField/TextField";
 import styles from "./EditTransactionModal.module.css";
 import "./editTransactionModal.css";
 import moment from "moment";
+import { useUpdateTransactionMutation } from "@/store/apiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -59,7 +60,7 @@ const schema = yup.object().shape({
 });
 
 const EditTransactionModal = (props) => {
-  const { open, setOpen, data } = props;
+  const { open, setOpen, rowData } = props;
   const {
     register,
     handleSubmit,
@@ -69,25 +70,43 @@ const EditTransactionModal = (props) => {
   const onCloseModal = () => setOpen(false);
 
   useEffect(() => {
-    setValue("title", data.title);
-    setValue("amount", data.amount);
+    setValue("title", rowData.title);
+    setValue("amount", rowData.amount);
     setValue(
       "createdAt",
-      moment(data.createdAt, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
+      moment(rowData.createdAt, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
     );
-    setValue("category", data.category.toLowerCase());
-    setValue("account", data.account.toLowerCase());
-    setValue("type", data.type.toLowerCase());
-    setValue("notes", data.notes);
+    setValue("category", rowData.category.toLowerCase());
+    setValue("account", rowData.account.toLowerCase());
+    setValue("type", rowData.type.toLowerCase());
+    setValue("notes", rowData.notes);
   }, [setValue]);
 
-  const formSubmitHandler = (data) => {
-    console.log(data);
+  const [updateTransaction, { isSuccess, isLoading, isError }] =
+    useUpdateTransactionMutation();
 
-    //Show Toast
-    toast.success("Transaction Details Updated", {
-      position: "bottom-center",
+  const formSubmitHandler = async (data) => {
+    // console.log(data);
+
+    // API Call
+    const response = await updateTransaction({
+      id: rowData._id,
+      updatedTransaction: data,
     });
+
+    console.log(response);
+
+    if (response.data) {
+      // Show Toast
+      toast.success("Transaction Details Updated", {
+        position: "bottom-center",
+      });
+    } else {
+      //Show Toast
+      toast.error("Something went wrong", {
+        position: "bottom-center",
+      });
+    }
 
     // Close modal
     onCloseModal();

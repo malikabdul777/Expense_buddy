@@ -24,6 +24,8 @@ import { useState } from "react";
 import ViewTransactionModal from "@/components/ViewTransactionModal/ViewTransactionModal";
 import EditTransactionModal from "@/components/EditTransactionsModal/EditTransactionModal";
 import moment from "moment";
+import Modal from "react-responsive-modal";
+import { useDeleteTransactionMutation } from "@/store/apiSlices/transactionsApiSlice";
 
 const categories = data.categories;
 const columnsData = [
@@ -55,10 +57,12 @@ const columnsData = [
     cell: ({ row }) => (
       <div className="capitalize flex items-center">
         <span className="mr-5">
-          {
+          {/* Need work */}
+          {/* {
             categories.filter((ele) => ele.name === row.original.category)[0]
               .emoji
-          }
+          } */}
+          {"🥑"}
         </span>
         <TextWithEllipsis maxLength={14}>
           {row.getValue("title")}
@@ -150,6 +154,28 @@ const columnsData = [
         useState(false);
       const [editTransactionModalOpen, setEditTransactionModalOpen] =
         useState(false);
+      const [transactionDeleteModalOpen, setTransactionDeleteModalOpen] =
+        useState(false);
+      const [deleteTransaction] = useDeleteTransactionMutation();
+
+      const deleteButtonHandler = async () => {
+        const response = await deleteTransaction(row.original._id);
+        // console.log(response);
+
+        // Show Toast
+        if (response.data) {
+          toast.success("Transaction Added Successfully", {
+            position: "bottom-center",
+          });
+        } else {
+          toast.error("Something went wrong", {
+            position: "bottom-center",
+          });
+        }
+
+        //Close Modal
+        setTransactionDeleteModalOpen(false);
+      };
       return (
         <DropdownMenu>
           <ViewTransactionModal
@@ -160,8 +186,35 @@ const columnsData = [
           <EditTransactionModal
             open={editTransactionModalOpen}
             setOpen={setEditTransactionModalOpen}
-            data={row.original}
+            rowData={row.original}
           />
+          <Modal
+            open={transactionDeleteModalOpen}
+            onClose={() => setTransactionDeleteModalOpen(false)}
+            center
+            className={`${styles.modalContainer} addTransactionModalContainer`}
+          >
+            <div className={styles.deleteConfirmationModalContainer}>
+              <h2 className={styles.deleteConfirmationModalHeading}>
+                Do you want to delete the transaction?
+              </h2>
+              <div>
+                <Button
+                  variant="destructive"
+                  className={styles.deleteButton}
+                  onClick={deleteButtonHandler}
+                >
+                  Delete
+                </Button>
+                <Button
+                  className={styles.cancelButton}
+                  onClick={() => setTransactionDeleteModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </Modal>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
@@ -171,15 +224,18 @@ const columnsData = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => setViewTransactionModalOpen(true)}>
-              View Item
+              View
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setEditTransactionModalOpen(true)}>
-              Update Item
+              Update
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className={"errorColor"}>
-              Delete Item
+            <DropdownMenuItem
+              className={"errorColor"}
+              onClick={() => setTransactionDeleteModalOpen(true)}
+            >
+              Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

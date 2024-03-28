@@ -32,3 +32,25 @@
 .bottomTableNavigationBar {
   margin-right: 2rem;
 }
+
+/* Delete Modal */
+.deleteConfirmationModalContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.deleteConfirmationModalHeading {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.deleteButton {
+  margin-right: 20px;
+  width: 130px;
+}
+.cancelButton {
+  width: 130px;
+}

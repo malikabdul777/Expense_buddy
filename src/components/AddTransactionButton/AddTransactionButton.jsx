@@ -13,6 +13,10 @@ import { toast } from "react-toastify";
 // Utils
 
 // APISlices
+import {
+  useCreateTransactionMutation,
+  useGetAllTransactionsQuery,
+} from "@/store/apiSlices/transactionsApiSlice";
 
 // Slice
 
@@ -42,7 +46,7 @@ import "./addTransactionModal.css";
 
 // Form Validation Schema
 const schema = yup.object().shape({
-  name: yup.string().required("Name is required!"),
+  title: yup.string().required("Title is required!"),
   amount: yup
     .number()
     .typeError("Amount is required!")
@@ -66,17 +70,27 @@ const AddTransactionButton = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const formSubmitHandler = (data) => {
-    console.log(data);
+  const [createTransaction, { isSuccess, isLoading, isError }] =
+    useCreateTransactionMutation();
 
-    // Show Toast
-    toast.success("Transaction Added Successfully", {
-      position: "bottom-center",
-    });
+  const formSubmitHandler = async (data) => {
+    // Create Transaction
+    const response = await createTransaction(data);
 
-    // Reset Form
-    reset();
+    if (response.data) {
+      // Show Toast
+      toast.success("Transaction Added Successfully", {
+        position: "bottom-center",
+      });
 
+      // Reset Form
+      reset();
+    } else {
+      // Show Toast
+      toast.error("Something went wrong", {
+        position: "bottom-center",
+      });
+    }
     // Close Modal
     onCloseModal();
   };
@@ -103,8 +117,8 @@ const AddTransactionButton = () => {
               <TextField
                 errors={errors}
                 register={register}
-                placeholder="Name"
-                name="name"
+                placeholder="Title"
+                name="title"
               />
               <TextField
                 errors={errors}
