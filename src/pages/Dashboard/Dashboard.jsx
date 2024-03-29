@@ -68,9 +68,9 @@ const Dashboard = () => {
     // Calculating monthly income and expenses
     const filteredTransactions = thisMonthsTransactions.reduce(
       (acc, transaction) => {
-        if (transaction.type === "credit") {
+        if (transaction.type === "income") {
           acc.income += transaction.amount;
-        } else if (transaction.type === "debit") {
+        } else if (transaction.type === "expense") {
           acc.expenses += transaction.amount;
         }
         return acc;

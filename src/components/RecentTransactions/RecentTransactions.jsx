@@ -28,6 +28,7 @@ import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/tra
 import moment from "moment";
 import ViewTransactionModal from "../ViewTransactionModal/ViewTransactionModal";
 import { useState } from "react";
+import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categoryApiSlice";
 
 // Local enums
 
@@ -40,9 +41,9 @@ const RecentTransactions = () => {
   const [viewTransactionModalOpen, setViewTransactionModalOpen] = useState({});
 
   // Fetching Transactions from server
-  const { data, isSuccess, isError, isLoading, error } =
-    useGetAllTransactionsQuery();
-  console.log(data.data.transaction);
+  const { data } = useGetAllTransactionsQuery();
+
+  const { data: categoriesData } = useGetAllCategoriesQuery();
 
   const recentTransactions = data?.data?.transaction
     .slice(0, 10)
@@ -51,78 +52,97 @@ const RecentTransactions = () => {
   return (
     <>
       <h3 className={styles.heading}>Recent Transactions</h3>
-      {recentTransactions?.map((currEle) => {
-        return (
-          <div className={styles.recentTransactionCard} key={currEle.createdAt}>
-            <div className={styles.categoryDetails}>
-              <p className={styles.categoryEmoji}>
-                {/* {
-                  userData.categories.filter(
-                    (ele) => ele.name === currEle.category
-                  )[0].emoji
-                } */}{" "}
-                🥑
-              </p>
+      {recentTransactions.length !== 0 &&
+        recentTransactions?.map((currEle) => {
+          return (
+            <div
+              className={styles.recentTransactionCard}
+              key={currEle.createdAt}
+            >
+              <div className={styles.categoryDetails}>
+                <p className={styles.categoryEmoji}>
+                  {
+                    categoriesData?.data?.categories?.find(
+                      (ele) =>
+                        String(ele.name.toLowerCase()).toLowerCase() ===
+                        String(currEle.category.toLowerCase()).toLowerCase()
+                    )?.emoji
+                  }
+                </p>
+                <div className={"capitalize"}>
+                  <TextWithEllipsis
+                    className={styles.transactionCategory}
+                    maxLength={6}
+                  >
+                    {currEle.title}
+                  </TextWithEllipsis>
+                  <p className={styles.transactionDate}>
+                    {moment(currEle.createdAt).format("L")}
+                  </p>
+                </div>
+              </div>
+
+              <div className={"capitalize"}>
+                <TextWithEllipsis
+                  className={`${
+                    currEle.type === "expense" ? "errorColor" : "successColor"
+                  }`}
+                  maxLength={7}
+                >
+                  {currEle.account}
+                </TextWithEllipsis>
+              </div>
               <div>
                 <TextWithEllipsis
-                  className={styles.transactionCategory}
-                  maxLength={6}
+                  className={`${
+                    currEle.type === "expense" ? "errorColor" : "successColor"
+                  }`}
+                  maxLength={7}
                 >
-                  {currEle.title}
+                  {`$ ${currEle.amount}`}
                 </TextWithEllipsis>
-                <p className={styles.transactionDate}>
-                  {moment(currEle.createdAt).format("L")}
-                </p>
+              </div>
+              <div>
+                <FaRegEye
+                  size={15}
+                  className={"cursor-pointer"}
+                  onClick={() => {
+                    setViewTransactionModalOpen((prevState) => ({
+                      ...prevState,
+                      [currEle.createdAt]: true,
+                    }));
+                  }}
+                />
+                <ViewTransactionModal
+                  open={viewTransactionModalOpen[currEle.createdAt] || false}
+                  setOpen={(value) => {
+                    setViewTransactionModalOpen((prevState) => {
+                      return {
+                        ...prevState,
+                        [currEle.createdAt]: value,
+                      };
+                    });
+                  }}
+                  data={currEle}
+                />
               </div>
             </div>
-
-            <div>
-              <TextWithEllipsis
-                className={`${
-                  currEle.type === "debit" ? "errorColor" : "successColor"
-                }`}
-                maxLength={7}
-              >
-                {currEle.account}
-              </TextWithEllipsis>
-            </div>
-            <div>
-              <TextWithEllipsis
-                className={`${
-                  currEle.type === "debit" ? "errorColor" : "successColor"
-                }`}
-                maxLength={7}
-              >
-                {`$ ${currEle.amount}`}
-              </TextWithEllipsis>
-            </div>
-            <div>
-              <FaRegEye
-                size={15}
-                className={"cursor-pointer"}
-                onClick={() => setViewTransactionModalOpen(true)}
-              />
-              <ViewTransactionModal
-                open={viewTransactionModalOpen[currEle.createdAt] || false}
-                setOpen={(value) =>
-                  setViewTransactionModalOpen((prevState) => ({
-                    ...prevState,
-                    [currEle.createdAt]: value,
-                  }))
-                }
-                data={currEle}
-              />
-            </div>
-          </div>
-        );
-      })}
-      <div
-        className={styles.seeAllTransactions}
-        onClick={() => navigate("/transactions")}
-      >
-        <p>See all Transaction </p>
-        <FaLongArrowAltRight />
-      </div>
+          );
+        })}
+      {recentTransactions?.length === 0 && (
+        <div className={styles.noTransactionsText}>
+          <p>No Transactions Found</p>
+        </div>
+      )}
+      {recentTransactions?.length !== 0 && (
+        <div
+          className={styles.seeAllTransactions}
+          onClick={() => navigate("/transactions")}
+        >
+          <p>See all Transaction </p>
+          <FaLongArrowAltRight />
+        </div>
+      )}
     </>
   );
 };

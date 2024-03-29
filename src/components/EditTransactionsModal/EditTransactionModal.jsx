@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 // Utils
 
 // APISlices
+import { useUpdateTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import { useGetAllAccountsQuery } from "@/store/apiSlices/childApiSlices/accountsApiSlice";
+import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categoryApiSlice";
 
 // Slice
 
@@ -33,7 +36,6 @@ import TextField from "../ui/TextField/TextField";
 import styles from "./EditTransactionModal.module.css";
 import "./editTransactionModal.css";
 import moment from "moment";
-import { useUpdateTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -82,8 +84,10 @@ const EditTransactionModal = (props) => {
     setValue("notes", rowData.notes);
   }, [setValue]);
 
-  const [updateTransaction, { isSuccess, isLoading, isError }] =
-    useUpdateTransactionMutation();
+  // API Slices
+  const [updateTransaction] = useUpdateTransactionMutation();
+  const { data: accountsData } = useGetAllAccountsQuery();
+  const { data: categoriesData } = useGetAllCategoriesQuery();
 
   const formSubmitHandler = async (data) => {
     // console.log(data);
@@ -111,21 +115,14 @@ const EditTransactionModal = (props) => {
     // Close modal
     onCloseModal();
   };
-  const transactionsTypesArray = ["Credit", "Debit"];
-  const categoriesArray = [
-    "Health",
-    "Utilities",
-    "Food",
-    "Entertainment",
-    "Grocery",
-    "Travel",
-  ];
-  const accountsArray = [
-    "Costco card",
-    "Debit card",
-    "Credit card",
-    "Bank account",
-  ];
+  const transactionsTypesArray = ["Income", "Expense"];
+  const categoriesArray = categoriesData?.data.categories.map(
+    (category) => category.name
+  );
+  // const accountsArray = ["Debit card", "Credit card", "Costco card"];
+  const accountsArray = accountsData?.data.accounts.map(
+    (account) => account.name
+  );
 
   return (
     <div className={styles.container}>

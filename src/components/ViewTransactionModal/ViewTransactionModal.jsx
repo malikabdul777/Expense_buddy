@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // Utils
 
 // APISlices
+import { useGetAllAccountsQuery } from "@/store/apiSlices/childApiSlices/accountsApiSlice";
+import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categoryApiSlice";
 
 // Slice
 
@@ -79,21 +81,17 @@ const ViewTransactionModal = (props) => {
     setValue("notes", data.notes);
   }, [setValue]);
 
-  const transactionsTypesArray = ["Credit", "Debit"];
-  const categoriesArray = [
-    "Health",
-    "Utilities",
-    "Food",
-    "Entertainment",
-    "Grocery",
-    "Travel",
-  ];
-  const accountsArray = [
-    "Costco card",
-    "Debit card",
-    "Credit card",
-    "Bank account",
-  ];
+  // API Slices
+  const { data: accountsData } = useGetAllAccountsQuery();
+  const { data: categoriesData } = useGetAllCategoriesQuery();
+
+  const transactionsTypesArray = ["Income", "Expense"];
+  const categoriesArray = categoriesData?.data.categories.map(
+    (category) => category.name
+  );
+  const accountsArray = accountsData?.data.accounts.map(
+    (account) => account.name
+  );
 
   return (
     <div className={styles.container}>
@@ -178,7 +176,7 @@ const ViewTransactionModal = (props) => {
                 errors={errors}
                 register={register}
                 name="notes"
-                placeholder="Write your notes here"
+                placeholder="No transaction notes available!"
                 disabled={true}
               />
             </form>

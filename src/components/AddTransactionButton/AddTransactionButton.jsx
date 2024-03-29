@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 
 // APISlices
 import { useCreateTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import { useGetAllAccountsQuery } from "@/store/apiSlices/childApiSlices/accountsApiSlice";
+import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categoryApiSlice";
 
 // Slice
 
@@ -61,13 +63,17 @@ const AddTransactionButton = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
+  // API Slices
   const [createTransaction] = useCreateTransactionMutation();
+  const { data: accountsData } = useGetAllAccountsQuery();
+  const { data: categoriesData } = useGetAllCategoriesQuery();
 
   const formSubmitHandler = async (data) => {
     // Create Transaction
@@ -91,10 +97,14 @@ const AddTransactionButton = () => {
     onCloseModal();
   };
 
-  const transactionsTypesArray = ["Credit", "Debit"];
-  const categoriesArray = ["Health", "Utilities", "Food"];
-  const accountsArray = ["Debit card", "Credit card", "Costco card"];
-  // console.log("ett");
+  const transactionsTypesArray = ["Income", "Expense"];
+  const categoriesArray = categoriesData?.data.categories.map(
+    (category) => category.name
+  );
+  const accountsArray = accountsData?.data.accounts.map(
+    (account) => account.name
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.addButtonContainer} onClick={onOpenModal}>
@@ -143,6 +153,7 @@ const AddTransactionButton = () => {
                       name="type"
                       errors={errors}
                       options={transactionsTypesArray}
+                      control={control}
                     ></SelectInput>
                   </div>
                 </div>
@@ -156,6 +167,7 @@ const AddTransactionButton = () => {
                       name="category"
                       errors={errors}
                       options={categoriesArray}
+                      control={control}
                     ></SelectInput>
                   </div>
                 </div>
@@ -167,6 +179,7 @@ const AddTransactionButton = () => {
                       name="account"
                       errors={errors}
                       options={accountsArray}
+                      control={control}
                     ></SelectInput>
                   </div>
                 </div>

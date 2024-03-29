@@ -99,20 +99,20 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
-            to="accounts"
+            to="configure"
             className={`${styles.navLink} ${
-              pathname === "/accounts" ? styles.activeNavLink : null
+              pathname === "/configure" ? styles.activeNavLink : null
             }`}
-            title={"Accounts"}
+            title={"Configure"}
           >
             <div className={styles.item}>
               <BsDatabase
                 size={20}
                 className={`${
-                  pathname === "/accounts" ? styles.activeIcon : null
+                  pathname === "/configure" ? styles.activeIcon : null
                 }`}
               />
-              <p className={styles.navLinkText}>Accounts</p>
+              <p className={styles.navLinkText}>Configure</p>
             </div>
           </NavLink>
         </div>

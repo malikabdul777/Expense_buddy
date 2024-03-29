@@ -29,6 +29,7 @@ import moment from "moment";
 import Modal from "react-responsive-modal";
 import { useDeleteTransactionMutation } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 import { toast } from "react-toastify";
+import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categoryApiSlice";
 
 const categories = data.categories;
 const columnsData = [
@@ -57,21 +58,26 @@ const columnsData = [
     header: () => {
       return <div>Title</div>;
     },
-    cell: ({ row }) => (
-      <div className="capitalize flex items-center">
-        <span className="mr-5">
-          {/* Need work */}
-          {/* {
-            categories.filter((ele) => ele.name === row.original.category)[0]
-              .emoji
-          } */}
-          {"🥑"}
-        </span>
-        <TextWithEllipsis maxLength={14}>
-          {row.getValue("title")}
-        </TextWithEllipsis>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const { data: categoriesData } = useGetAllCategoriesQuery();
+
+      return (
+        <div className="capitalize flex items-center justify-start">
+          <span className="mr-2">
+            {
+              categoriesData?.data?.categories?.find(
+                (ele) =>
+                  String(ele.name.toLowerCase()).toLowerCase() ===
+                  String(row.original.category.toLowerCase()).toLowerCase()
+              )?.emoji
+            }
+          </span>
+          <TextWithEllipsis maxLength={14}>
+            {row.getValue("title")}
+          </TextWithEllipsis>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "amount",
@@ -98,7 +104,7 @@ const columnsData = [
       return (
         <div
           className={`${
-            row.original.type === "debit" ? "errorColor" : "successColor"
+            row.original.type === "expense" ? "errorColor" : "successColor"
           }`}
         >
           <TextWithEllipsis maxLength={14}>{formatted}</TextWithEllipsis>
@@ -110,7 +116,7 @@ const columnsData = [
     accessorKey: "account",
     header: "Account",
     cell: ({ row }) => (
-      <div className="lowercase">
+      <div className="capitalize">
         <TextWithEllipsis maxLength={14}>
           {row.getValue("account")}
         </TextWithEllipsis>
@@ -121,7 +127,7 @@ const columnsData = [
     accessorKey: "category",
     header: "Category",
     cell: ({ row }) => (
-      <div className="lowercase">
+      <div className="capitalize">
         <TextWithEllipsis maxLength={10}>
           {row.getValue("category")}
         </TextWithEllipsis>

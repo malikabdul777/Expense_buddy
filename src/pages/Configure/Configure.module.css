@@ -1,0 +1,89 @@
+.configureContainer {
+  margin-left: 10px;
+  display: flex;
+}
+.accountsContainer {
+  flex: 1;
+  width: 100%;
+}
+.accountsHeading {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.textFieldContainer {
+  width: 450px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.addButton {
+  margin-left: 20px;
+  margin-top: 3px;
+  min-width: 120px;
+}
+.accountSubHeading {
+  font-size: 18px;
+  font-weight: 500;
+  margin-block: 20px 15px;
+}
+
+.accountCard {
+  background-color: var(--white);
+  border-radius: 10px;
+  border: 0.5px solid var(--lightGrey);
+  box-shadow: 0px 10px 12px -9px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 10px 24px;
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteIcon {
+  color: var(--error);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.deleteIcon:hover {
+  transform: scale(1.09);
+}
+.deleteIcon:active {
+  transform: scale(0.92);
+}
+
+.categoryContainer {
+  flex: 1;
+  width: 100%;
+}
+
+.emojiContainerWrapper {
+  width: 60px;
+  position: relative;
+  cursor: pointer;
+}
+.emojiContainer {
+  margin-left: 10px;
+  background-color: var(--white);
+  border-radius: 10px;
+  border: 0.5px solid hsl(0, 0%, 79%);
+  padding: 8px 12px;
+}
+.emojiPickerContainer {
+  position: absolute;
+  top: 130%;
+  right: -10%;
+}
+.categoryDetails {
+  display: flex;
+  align-items: center;
+}
+.categoryDetailsEmoji {
+  margin-right: 10px;
+}
+.noCategoryText {
+  color: var(--darkGrey);
+  margin-top: 20px;
+  font-size: 16px;
+}
