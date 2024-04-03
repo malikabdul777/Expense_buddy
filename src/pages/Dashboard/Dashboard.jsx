@@ -29,6 +29,7 @@ import DashboardChart from "@/components/DashboardChart/DashboardChart";
 import styles from "./Dashboard.module.css";
 import AddTransactionButton from "@/components/AddTransactionButton/AddTransactionButton";
 import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import moment from "moment/moment";
 
 // Local enums
 
@@ -79,6 +80,63 @@ const Dashboard = () => {
 
     setMonthlySummary(filteredTransactions);
   }, [data?.data?.transaction]);
+
+  const { data: allTransactionsData } = useGetAllTransactionsQuery();
+
+  const transformData = (data, isMonthly = true) => {
+    const currentMoment = moment(); // Current moment
+
+    // Filter data for the current month or week
+    const filteredData = isMonthly
+      ? data.filter((obj) => moment(obj.date).month() === currentMoment.month())
+      : data.filter((obj) => moment(obj.date).week() === currentMoment.week());
+
+    // Generate an array with all dates of the current month or week
+    const allDates = [];
+    if (isMonthly) {
+      const daysInMonth = currentMoment.daysInMonth();
+      for (let i = 1; i <= daysInMonth; i++) {
+        allDates.push(moment().date(i).format("DD"));
+      }
+    } else {
+      for (let i = 0; i < 7; i++) {
+        allDates.push(moment().day(i).format("dddd"));
+      }
+    }
+
+    // Group the filtered data by date
+    const groupedData = filteredData.reduce((acc, obj) => {
+      const date = isMonthly
+        ? moment(obj.date).format("DD")
+        : moment(obj.date).format("dddd");
+      if (!acc[date]) {
+        acc[date] = { name: date, income: 0, expense: 0 };
+      }
+      if (obj.type === "income") {
+        acc[date].income += obj.amount;
+      } else {
+        acc[date].expense += obj.amount;
+      }
+      return acc;
+    }, {});
+
+    // Convert the grouped data object into an array of objects
+    const transformedData = allDates.map(
+      (date) => groupedData[date] || { name: date, income: 0, expense: 0 }
+    );
+
+    return transformedData;
+  };
+
+  // Calling the function to transform the data
+  const transformedMonthlyData = transformData(
+    allTransactionsData?.data?.transaction,
+    true
+  );
+  const transformedWeeklyData = transformData(
+    allTransactionsData?.data?.transaction,
+    false
+  );
 
   return (
     <div className={styles.container}>
@@ -159,7 +217,14 @@ const Dashboard = () => {
           </div>
 
           <div className={styles.dashboardChart}>
-            <DashboardChart />
+            <DashboardChart
+              data={
+                activeChartTab === "Week"
+                  ? transformedWeeklyData
+                  : transformedMonthlyData
+              }
+              isMonthly={activeChartTab === "Month"}
+            />
           </div>
         </div>
       </div>

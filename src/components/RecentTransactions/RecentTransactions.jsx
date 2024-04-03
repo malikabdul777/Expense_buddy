@@ -55,7 +55,7 @@ const RecentTransactions = () => {
       {recentTransactions.length !== 0 &&
         recentTransactions?.map((currEle) => {
           return (
-            <div className={styles.recentTransactionCard} key={currEle.date}>
+            <div className={styles.recentTransactionCard} key={currEle._id}>
               <div className={styles.categoryDetails}>
                 <p className={styles.categoryEmoji}>
                   {

@@ -43,13 +43,19 @@ const data = [
   { name: "29", income: 0, expense: 0 },
   { name: "30", income: 0, expense: 0 },
 ];
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label, chartIsMonthly }) => {
+  const currentMonth = moment().format("MMMM");
+  const currentYear = moment().format("YYYY");
+
   if (active && payload && payload.length) {
     // console.log(payload);
     return (
       <div className={styles.tooltipContainer}>
         <div>
-          <p>On {payload[0].payload.name}th</p>
+          <p>
+            On {payload[0].payload.name}
+            {chartIsMonthly ? `${currentMonth} ${currentYear}` : null}
+          </p>
         </div>
         <p className={styles.tooltipIncomeValue}>
           <span className={styles.tooltipHeadings}>Income </span>- ${" "}
@@ -66,57 +72,14 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const DashboardChart = () => {
-  const { data: allTransactionsData } = useGetAllTransactionsQuery();
-
-  // console.log(allTransactionsData.data.transaction);
-
-  const transformData = (data) => {
-    const currentMonth = moment().month(); // Get current month
-
-    // Filter data for the current month
-    const filteredData = data.filter(
-      (obj) => moment(obj.date).month() === currentMonth
-    );
-
-    // Generate an array with all dates of the current month
-    const allDates = [];
-    const daysInMonth = moment().daysInMonth();
-    for (let i = 1; i <= daysInMonth; i++) {
-      allDates.push(moment().date(i).format("DD"));
-    }
-
-    // Group the filtered data by date
-    const groupedData = filteredData.reduce((acc, obj) => {
-      const date = moment(obj.date).format("DD");
-      if (!acc[date]) {
-        acc[date] = { name: date, income: 0, expense: 0 };
-      }
-      if (obj.type === "income") {
-        acc[date].income += obj.amount;
-      } else {
-        acc[date].expense += obj.amount;
-      }
-      return acc;
-    }, {});
-
-    // Converting the grouped data object into an array of objects
-    const transformedData = allDates.map(
-      (date) => groupedData[date] || { name: date, income: 0, expense: 0 }
-    );
-
-    return transformedData;
-  };
-
-  // Calling the function to transform the data
-  const transformedData = transformData(allTransactionsData?.data?.transaction);
-
+const DashboardChart = (props) => {
+  const { data, isMonthly } = props;
   return (
     <ResponsiveContainer width="100%" height="90%">
       <AreaChart
         width={500}
         height={350}
-        data={transformedData}
+        data={data}
         margin={{
           top: 0,
           right: 10,
@@ -124,7 +87,10 @@ const DashboardChart = () => {
           bottom: 0,
         }}
       >
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: "transparent" }} />
+        <Tooltip
+          content={<CustomTooltip chartIsMonthly={isMonthly} />}
+          cursor={{ fill: "transparent" }}
+        />
 
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
