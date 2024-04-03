@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import styles from "./DashboardChart.module.css";
 import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import moment from "moment/moment";
 
 const data = [
   { name: "1", income: 0, expense: 80 },
@@ -43,10 +44,6 @@ const data = [
   { name: "30", income: 0, expense: 0 },
 ];
 const CustomTooltip = ({ active, payload, label }) => {
-  // const { data } = useGetAllTransactionsQuery();
-
-  // console.log(data.data.transaction);
-
   if (active && payload && payload.length) {
     // console.log(payload);
     return (
@@ -70,12 +67,56 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const DashboardChart = () => {
+  const { data: allTransactionsData } = useGetAllTransactionsQuery();
+
+  // console.log(allTransactionsData.data.transaction);
+
+  const transformData = (data) => {
+    const currentMonth = moment().month(); // Get current month
+
+    // Filter data for the current month
+    const filteredData = data.filter(
+      (obj) => moment(obj.date).month() === currentMonth
+    );
+
+    // Generate an array with all dates of the current month
+    const allDates = [];
+    const daysInMonth = moment().daysInMonth();
+    for (let i = 1; i <= daysInMonth; i++) {
+      allDates.push(moment().date(i).format("DD"));
+    }
+
+    // Group the filtered data by date
+    const groupedData = filteredData.reduce((acc, obj) => {
+      const date = moment(obj.date).format("DD");
+      if (!acc[date]) {
+        acc[date] = { name: date, income: 0, expense: 0 };
+      }
+      if (obj.type === "income") {
+        acc[date].income += obj.amount;
+      } else {
+        acc[date].expense += obj.amount;
+      }
+      return acc;
+    }, {});
+
+    // Converting the grouped data object into an array of objects
+    const transformedData = allDates.map(
+      (date) => groupedData[date] || { name: date, income: 0, expense: 0 }
+    );
+
+    return transformedData;
+  };
+
+  // Calling the function to transform the data
+  const transformedData = transformData(allTransactionsData?.data?.transaction);
+
   return (
     <ResponsiveContainer width="100%" height="90%">
       <AreaChart
         width={500}
         height={350}
-        data={data}
+        data={transformedData}
         margin={{
           top: 0,
           right: 10,

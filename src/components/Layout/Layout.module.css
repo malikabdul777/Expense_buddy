@@ -52,3 +52,8 @@
   /* font-weight: 600; */
   font-size: 20px;
 }
+.errorText {
+  margin-left: 10px;
+  font-size: 20px;
+  color: var(--error);
+}

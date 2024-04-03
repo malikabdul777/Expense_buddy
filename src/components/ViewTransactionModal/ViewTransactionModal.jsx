@@ -7,6 +7,7 @@ import { Modal } from "react-responsive-modal";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import moment from "moment";
 
 // Utils
 
@@ -31,8 +32,6 @@ import TextField from "../ui/TextField/TextField";
 
 // Styles
 import styles from "./ViewTransactionModal.module.css";
-import "./viewTransactionModal.css";
-import moment from "moment";
 
 // Local enums
 
@@ -48,10 +47,7 @@ const schema = yup.object().shape({
     .typeError("Amount is required!")
     .positive("Please enter a positive value")
     .required("Amount is required!"),
-  createdAt: yup
-    .date()
-    .typeError("Date is required!")
-    .required("Date is required!"),
+  date: yup.date().typeError("Date is required!").required("Date is required!"),
   type: yup.string().required(),
   category: yup.string().required(),
   account: yup.string().required(),
@@ -72,8 +68,8 @@ const ViewTransactionModal = (props) => {
     setValue("title", data.title);
     setValue("amount", data.amount);
     setValue(
-      "createdAt",
-      moment(data.createdAt, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
+      "date",
+      moment(data.date, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
     );
     setValue("category", data.category.toLowerCase());
     setValue("account", data.account.toLowerCase());
@@ -99,7 +95,7 @@ const ViewTransactionModal = (props) => {
         open={open}
         onClose={onCloseModal}
         center
-        className={`${styles.modalContainer} addTransactionModalContainer`}
+        className={styles.modalContainer}
       >
         <h2 className={styles.modalHeading}>Transaction Details</h2>
         <div>
@@ -128,7 +124,7 @@ const ViewTransactionModal = (props) => {
                   <TextField
                     errors={errors}
                     register={register}
-                    name="createdAt"
+                    name="date"
                     type="datetime-local"
                     disabled={true}
                   />
@@ -156,6 +152,10 @@ const ViewTransactionModal = (props) => {
                       name="category"
                       options={categoriesArray}
                       disabled={true}
+                      noOptions={{
+                        errorMessage: "No categories available",
+                        redirectTo: "/configure",
+                      }}
                     ></SelectInput>
                   </div>
                 </div>
@@ -168,6 +168,10 @@ const ViewTransactionModal = (props) => {
                       name="account"
                       options={accountsArray}
                       disabled={true}
+                      noOptions={{
+                        errorMessage: "No accounts available",
+                        redirectTo: "/configure",
+                      }}
                     ></SelectInput>
                   </div>
                 </div>

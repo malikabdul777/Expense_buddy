@@ -21,16 +21,17 @@
   overflow-y: scroll;
   overflow-x: hidden;
   flex: 4;
-  margin-right: 3rem;
+  margin-right: 20px;
+  margin-left: -20px;
 }
 .tableFilterContainer {
   flex: 1;
 }
 .tableFilterTopBar {
-  margin-inline: 2rem;
+  margin-inline: 20px;
 }
 .bottomTableNavigationBar {
-  margin-right: 2rem;
+  margin-right: 20px;
 }
 
 /* Delete Modal */

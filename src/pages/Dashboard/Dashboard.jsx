@@ -44,8 +44,7 @@ const Dashboard = () => {
   const [activeChartTab, setActiveChartTab] = useState("Month");
 
   // Fetching Transactions from server
-  const { data, isSuccess, isError, isLoading, error } =
-    useGetAllTransactionsQuery();
+  const { data } = useGetAllTransactionsQuery();
 
   // console.log("Data from API", data.data.transaction);
 
@@ -56,7 +55,7 @@ const Dashboard = () => {
     // Getting current month transactions
     const thisMonthsTransactions = data.data.transaction.filter(
       (currentTransaction) => {
-        const transactionDate = new Date(currentTransaction.createdAt);
+        const transactionDate = new Date(currentTransaction.date);
 
         return (
           transactionDate.getMonth() === currentMonth &&

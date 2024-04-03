@@ -204,7 +204,7 @@ const Configure = () => {
         </form>
         <div>
           <h2 className={styles.accountSubHeading}>Existing Accounts</h2>
-          <div>
+          <div className={styles.categoryCardContainer}>
             {accountsData?.data?.accounts.length !== 0 &&
               accountsData?.data?.accounts.map((account) => (
                 <div className={styles.accountCard} key={account._id}>
@@ -267,7 +267,7 @@ const Configure = () => {
         </form>
         <div>
           <h2 className={styles.accountSubHeading}>Existing Categories</h2>
-          <div>
+          <div className={styles.categoryCardContainer}>
             {categoriesData?.data?.categories.length !== 0 &&
               categoriesData?.data?.categories.map((category) => (
                 <div className={styles.accountCard} key={category._id}>

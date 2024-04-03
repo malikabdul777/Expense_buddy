@@ -1,2 +1,65 @@
 .container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 20px;
+}
+.heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--black);
+}
+.headingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--accentColor);
+}
+.filterInputsContainer {
+  margin-block: 30px;
+}
+.transactionFilterHeading {
+  margin-block: 30px 10px;
+  font-weight: 600;
+}
+.checkBoxContainer {
+  display: flex;
+  margin-top: 10px;
+}
+.typeLabel {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.singleCheckboxContainer {
+  /* border: 1px solid var(--success); */
+  padding: 5px 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.singleCheckboxContainer:nth-child(2) {
+  margin-left: 20px;
+  display: flex;
+  /* border: 1px solid var(--error); */
+}
+.transactionTypeCheckBox {
+  width: "30px";
+  cursor: pointer;
+  height: "30px";
+}
+.transactionTypeCheckBox:nth-child(1) {
+  width: "30px";
+  cursor: pointer;
+  height: "30px";
+}
+.incomeCheckbox {
+  accent-color: var(--success);
+}
+.expenseCheckbox {
+  accent-color: var(--error);
+}
+.filterInputsContainer {
+  max-width: 80vw;
+  overflow-y: scroll;
 }

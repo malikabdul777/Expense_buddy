@@ -3,6 +3,7 @@
 // Thirdparty
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { CiBellOn } from "react-icons/ci";
+import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
 
 // Utils
 
@@ -52,12 +53,18 @@ const Layout = () => {
           </div>
         </div>
         <div className={styles.outlet}>
-          {!data && (
+          {isLoading && (
             <div className={styles.dataLoadingContainer}>
               <div className="simple-spinner">
                 <span></span>
               </div>
               <p className={styles.loadingText}>Data is being loaded...</p>
+            </div>
+          )}
+          {isError && (
+            <div className={styles.dataLoadingContainer}>
+              <MdOutlineWifiTetheringErrorRounded size={40} color={"#df6555"} />
+              <p className={styles.errorText}>Something went wrong...</p>
             </div>
           )}
           {data && <Outlet />}

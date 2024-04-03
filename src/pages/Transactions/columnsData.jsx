@@ -135,7 +135,7 @@ const columnsData = [
     ),
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "date",
     header: ({ column }) => {
       return (
         <Button
@@ -150,7 +150,7 @@ const columnsData = [
     cell: ({ row }) => {
       return (
         <div className="lowercase">
-          {moment(row.getValue("createdAt")).format("L")}
+          {moment(row.getValue("date")).format("L")}
         </div>
       );
     },
@@ -201,7 +201,7 @@ const columnsData = [
             open={transactionDeleteModalOpen}
             onClose={() => setTransactionDeleteModalOpen(false)}
             center
-            className={`${styles.modalContainer} addTransactionModalContainer`}
+            className={styles.modalContainer}
           >
             <div className={styles.deleteConfirmationModalContainer}>
               <h2 className={styles.deleteConfirmationModalHeading}>

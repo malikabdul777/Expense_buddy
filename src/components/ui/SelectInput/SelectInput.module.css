@@ -4,8 +4,34 @@
   padding: 9px 20px;
   margin-bottom: 20px;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .selectInput {
   width: 100%;
   outline: none;
+}
+.noOptionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.addAccountButton {
+  width: 50px;
+  height: 20px;
+}
+.noOptionsText {
+  font-size: 15px;
+  color: var(--darkGrey);
+  margin-right: 15px;
+}
+.addIcon {
+  margin-left: 10px;
+  cursor: pointer;
+  color: var(--darkGrey);
+  transition: color 0.2s ease;
+}
+.addIcon:hover {
+  color: var(--black);
 }

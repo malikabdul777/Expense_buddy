@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 
 // Thirdparty
-import { addDays } from "date-fns";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import {
@@ -14,15 +13,12 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import TransactionsFilterSideBar from "@/components/TransactionsFilterSideBar/TransactionsFilterSideBar";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -33,20 +29,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import moment from "moment";
 
 // Utils
-import dummyData from "../../data/data_updated";
 import columnsData from "./columnsData";
 
 // APISlices
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Slice
 
 // CustomHooks
 
 // Components
-import EBDateRangePicker from "@/components/EBDateRangePicker/EBDateRangePicker";
 
 // Constants
 
@@ -56,8 +50,6 @@ import EBDateRangePicker from "@/components/EBDateRangePicker/EBDateRangePicker"
 
 // Styles
 import styles from "./Transactions.module.css";
-import TransactionsFilterSideBar from "@/components/TransactionsFilterSideBar/TransactionsFilterSideBar";
-import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -69,45 +61,24 @@ const Transactions = () => {
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const [date, setDate] = useState({
-    from: addDays(new Date(), -30),
-    to: new Date(),
-  });
-  const [dateFilteredData, setDateFilteredData] = useState([]);
+  // Fetching All Transactions
+  const { data, isSuccess, isError, isLoading } = useGetAllTransactionsQuery();
 
-  // Fetching Transactions
-  const { data, isSuccess, isError, isLoading, error } =
-    useGetAllTransactionsQuery();
+  // Data
+  const [filteredData, setFilteredData] = useState([]);
 
-  // console.log(data?.data.transaction);
+  const setFilteredDataHandler = (data) => {
+    setFilteredData(data);
+  };
 
   useEffect(() => {
-    const filteredData = data?.data.transaction.filter((transaction) => {
-      // Formatting Date from server
-      const isoDate = moment.utc(transaction.date);
-      const formattedDate = moment(isoDate._d).format("L");
-
-      // console.log(formattedDate);
-      if (
-        date &&
-        date.to !== undefined &&
-        date.from !== undefined &&
-        date !== undefined
-      ) {
-        return (
-          formattedDate >= moment(date.from).format("L") &&
-          formattedDate <= moment(date.to).format("L")
-        );
-      } else {
-        return null;
-      }
-    });
-
-    setDateFilteredData(filteredData);
-  }, [date, data?.data]);
+    if (isSuccess) {
+      setFilteredData(data?.data.transaction);
+    }
+  }, [data, isSuccess]);
 
   const table = useReactTable({
-    data: dateFilteredData,
+    data: filteredData,
     columns: columnsData,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -129,7 +100,6 @@ const Transactions = () => {
     <div className={`${styles.container}`}>
       <div className={styles.tableContainerMain}>
         <div className={`flex items-center py-4 ${styles.tableFilterTopBar}`}>
-          <EBDateRangePicker date={date} setDate={setDate} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size={"sm"} className="ml-auto">
@@ -259,7 +229,10 @@ const Transactions = () => {
         </div>
       </div>
       <div className={styles.tableFilterContainer}>
-        <TransactionsFilterSideBar />
+        <TransactionsFilterSideBar
+          data={data}
+          setFilteredData={setFilteredDataHandler}
+        />
       </div>
     </div>
   );

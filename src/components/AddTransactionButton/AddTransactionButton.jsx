@@ -66,6 +66,7 @@ const AddTransactionButton = () => {
     control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -114,7 +115,7 @@ const AddTransactionButton = () => {
         open={open}
         onClose={onCloseModal}
         center
-        className={`${styles.modalContainer} addTransactionModalContainer`}
+        className={styles.modalContainer}
       >
         <h2 className={styles.modalHeading}>Add Transaction</h2>
         <div>
@@ -153,7 +154,6 @@ const AddTransactionButton = () => {
                       name="type"
                       errors={errors}
                       options={transactionsTypesArray}
-                      control={control}
                     ></SelectInput>
                   </div>
                 </div>
@@ -167,7 +167,10 @@ const AddTransactionButton = () => {
                       name="category"
                       errors={errors}
                       options={categoriesArray}
-                      control={control}
+                      noOptions={{
+                        errorMessage: "No categories available",
+                        redirectTo: "/configure",
+                      }}
                     ></SelectInput>
                   </div>
                 </div>
@@ -179,7 +182,10 @@ const AddTransactionButton = () => {
                       name="account"
                       errors={errors}
                       options={accountsArray}
-                      control={control}
+                      noOptions={{
+                        errorMessage: "No accounts available",
+                        redirectTo: "/configure",
+                      }}
                     ></SelectInput>
                   </div>
                 </div>

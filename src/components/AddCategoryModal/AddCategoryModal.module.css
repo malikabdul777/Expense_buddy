@@ -1,0 +1,32 @@
+.modalHeading {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+.formInputsWrapper {
+  display: flex;
+}
+.emojiContainerWrapper {
+  width: 60px;
+  position: relative;
+  cursor: pointer;
+}
+.emojiContainer {
+  margin-left: 10px;
+  background-color: var(--white);
+  border-radius: 10px;
+  border: 0.5px solid hsl(0, 0%, 79%);
+  padding: 8px 12px;
+}
+.emojiPickerContainer {
+  position: fixed; /* Change position to fixed */
+  top: 50%; /* Adjust positioning as needed */
+  left: 50%; /* Adjust positioning as needed */
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
+  z-index: 9999; /* Ensure it overlays other elements, increase if needed */
+  max-height: 90%; /* Set a maximum height relative to the viewport height */
+  overflow-y: hidden; /* Enable vertical scrolling if content exceeds container height */
+  border: 1px solid var(--lightGrey);
+  border-radius: 10px;
+}

@@ -34,7 +34,6 @@ import TextField from "../ui/TextField/TextField";
 
 // Styles
 import styles from "./EditTransactionModal.module.css";
-import "./editTransactionModal.css";
 import moment from "moment";
 
 // Local enums
@@ -51,10 +50,7 @@ const schema = yup.object().shape({
     .typeError("Amount is required!")
     .positive("Please enter a positive value")
     .required("Amount is required!"),
-  createdAt: yup
-    .date()
-    .typeError("Date is required!")
-    .required("Date is required!"),
+  date: yup.date().typeError("Date is required!").required("Date is required!"),
   type: yup.string().required(),
   category: yup.string().required(),
   account: yup.string().required(),
@@ -75,8 +71,8 @@ const EditTransactionModal = (props) => {
     setValue("title", rowData.title);
     setValue("amount", rowData.amount);
     setValue(
-      "createdAt",
-      moment(rowData.createdAt, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
+      "date",
+      moment(rowData.date, moment.ISO_8601).format("YYYY-MM-DDTHH:mm")
     );
     setValue("category", rowData.category.toLowerCase());
     setValue("account", rowData.account.toLowerCase());
@@ -130,7 +126,7 @@ const EditTransactionModal = (props) => {
         open={open}
         onClose={onCloseModal}
         center
-        className={`${styles.modalContainer} addTransactionModalContainer`}
+        className={styles.modalContainer}
       >
         <h2 className={styles.modalHeading}>Edit Transaction Details</h2>
         <div>
@@ -157,7 +153,7 @@ const EditTransactionModal = (props) => {
                   <TextField
                     errors={errors}
                     register={register}
-                    name="createdAt"
+                    name="date"
                     type="datetime-local"
                   />
                 </div>

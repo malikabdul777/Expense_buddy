@@ -55,10 +55,7 @@ const RecentTransactions = () => {
       {recentTransactions.length !== 0 &&
         recentTransactions?.map((currEle) => {
           return (
-            <div
-              className={styles.recentTransactionCard}
-              key={currEle.createdAt}
-            >
+            <div className={styles.recentTransactionCard} key={currEle.date}>
               <div className={styles.categoryDetails}>
                 <p className={styles.categoryEmoji}>
                   {
@@ -77,7 +74,7 @@ const RecentTransactions = () => {
                     {currEle.title}
                   </TextWithEllipsis>
                   <p className={styles.transactionDate}>
-                    {moment(currEle.createdAt).format("L")}
+                    {moment(currEle.date).format("L")}
                   </p>
                 </div>
               </div>
@@ -109,17 +106,17 @@ const RecentTransactions = () => {
                   onClick={() => {
                     setViewTransactionModalOpen((prevState) => ({
                       ...prevState,
-                      [currEle.createdAt]: true,
+                      [currEle.date]: true,
                     }));
                   }}
                 />
                 <ViewTransactionModal
-                  open={viewTransactionModalOpen[currEle.createdAt] || false}
+                  open={viewTransactionModalOpen[currEle.date] || false}
                   setOpen={(value) => {
                     setViewTransactionModalOpen((prevState) => {
                       return {
                         ...prevState,
-                        [currEle.createdAt]: value,
+                        [currEle.date]: value,
                       };
                     });
                   }}

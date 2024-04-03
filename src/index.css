@@ -78,6 +78,10 @@ input:disabled {
   background-color: #fff;
 }
 
+/* Checkbox accent color */
+/* input[type="checkbox"] {
+  accent-color: var(--accentColor);
+} */
 /* ShadCn UI */
 @layer base {
   :root {
