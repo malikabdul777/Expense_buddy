@@ -1,10 +1,10 @@
 // React
+import { useState } from "react";
 
 // Thirdparty
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 import Lottie from "react-lottie";
@@ -19,6 +19,8 @@ import animationData from "./signup_animation.json";
 // CustomHooks
 
 // Components
+import { Button } from "@/components/ui/button";
+import TextField from "@/components/ui/TextField/TextField";
 
 // Constants
 
@@ -27,7 +29,6 @@ import animationData from "./signup_animation.json";
 // Interfaces
 
 // Styles
-import TextField from "@/components/ui/TextField/TextField";
 import styles from "./SignUp.module.css";
 
 // Local enums
@@ -52,6 +53,10 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
+  const [passwordFieldType, setPasswordFieldType] = useState("password");
+  const [confirmPasswordFieldType, setConfirmPasswordFieldType] =
+    useState("password");
 
   const formSubmitHandler = (data) => {
     console.log(data);
@@ -93,14 +98,31 @@ const SignUp = () => {
               register={register}
               placeholder="Password"
               name="password"
-              type="password"
+              type={passwordFieldType}
+              endIcon="true"
+              icon="password"
+              onEndIconClick={() => {
+                setPasswordFieldType(
+                  passwordFieldType === "password" ? "text" : "password"
+                );
+
+                return passwordFieldType;
+              }}
             />
             <TextField
               errors={errors}
               register={register}
               placeholder="Confirm your password"
               name="passwordConfirmation"
-              type="password"
+              type={confirmPasswordFieldType}
+              endIcon="true"
+              icon="password"
+              onEndIconClick={() => {
+                setConfirmPasswordFieldType(
+                  confirmPasswordFieldType === "password" ? "text" : "password"
+                );
+                return confirmPasswordFieldType;
+              }}
             />
             <Button type="submit" className={styles.signUpButton}>
               Sign Up

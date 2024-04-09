@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 // Thirdparty
 import { BiDollar } from "react-icons/bi";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 // Utils
 
@@ -37,6 +38,7 @@ const TextField = (props) => {
     errors,
     endIcon,
     icon,
+    onEndIconClick = () => {},
     type = `text`,
     disabled = false,
   } = props;
@@ -48,6 +50,16 @@ const TextField = (props) => {
   useEffect(() => {
     setErrorMessage(errors[`${name}`]?.message || "Error here");
   }, [errors[`${name}`]]);
+
+  const [passwordHidden, setPasswordHidden] = useState(true);
+
+  const handleEndIconClick = () => {
+    const passwordFieldType = onEndIconClick();
+
+    setPasswordHidden(passwordFieldType === "password" ? false : true);
+
+    // console.log(passwordFieldType);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -62,6 +74,23 @@ const TextField = (props) => {
         />
         <div className={styles.endIcon}>
           {endIcon && icon === "dollar" ? <BiDollar size={18} /> : ""}
+          {endIcon && icon === "password" ? (
+            passwordHidden === true ? (
+              <FaRegEye
+                size={18}
+                className={styles.passwordEndIcon}
+                onClick={handleEndIconClick}
+              />
+            ) : (
+              <FaRegEyeSlash
+                size={18}
+                className={styles.passwordEndIcon}
+                onClick={handleEndIconClick}
+              />
+            )
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div>
