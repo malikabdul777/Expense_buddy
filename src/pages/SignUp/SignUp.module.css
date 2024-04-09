@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+.logo {
+  width: 200px;
+}
+.formHeading {
+  font-size: 26px;
+  font-weight: 700;
+  margin-block: 70px 50px;
+}
+.formSection {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -40px;
+}
+.formContainer {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signUpButton {
+  width: 350px;
+}
+.loginLinkText {
+  margin-top: 30px;
+  color: var(--darkGrey);
+}
+.loginLinkSpan {
+  margin-left: 10px;
+  color: var(--accentColor);
+  cursor: pointer;
+  font-weight: 600;
+}
+.imageSection {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(122, 69, 235, 0.54);
+  background: linear-gradient(
+    173deg,
+    rgb(122, 69, 235) 0%,
+    rgb(54, 148, 220) 100%
+  );
+}
+.image {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  width: 700px;
+}

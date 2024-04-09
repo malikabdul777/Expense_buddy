@@ -44,3 +44,14 @@
   color: var(--darkGrey);
   margin-block: 20px;
 }
+
+.moreMenuIcon {
+  transition: 0.5s ease transform;
+}
+.moreMenuIcon:hover {
+  transform: scale(1.07);
+  color: var();
+}
+.moreMenuIcon:active {
+  transform: scale(0.96);
+}

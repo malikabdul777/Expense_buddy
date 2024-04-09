@@ -3,6 +3,7 @@
 // Thirdparty
 import { IoIosArrowForward } from "react-icons/io";
 import { FaLongArrowAltRight, FaRegEye } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 // Utils
 
@@ -102,7 +103,7 @@ const RecentTransactions = () => {
               <div>
                 <FaRegEye
                   size={15}
-                  className={"cursor-pointer"}
+                  className={`cursor-pointer ${styles.moreMenuIcon}`}
                   onClick={() => {
                     setViewTransactionModalOpen((prevState) => ({
                       ...prevState,
@@ -110,6 +111,7 @@ const RecentTransactions = () => {
                     }));
                   }}
                 />
+
                 <ViewTransactionModal
                   open={viewTransactionModalOpen[currEle.date] || false}
                   setOpen={(value) => {

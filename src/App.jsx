@@ -11,7 +11,9 @@ import Configure from "./pages/Configure/Configure";
 import Settings from "./pages/Settings/Settings";
 import Help from "./pages/Help/Help";
 import AddTransactionButton from "./components/AddTransactionButton/AddTransactionButton";
+import SignUp from "./pages/SignUp/Signup";
 
+// Toast
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
@@ -31,6 +33,7 @@ function App() {
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Route>
+          <Route path="signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer position="bottom-center" />
