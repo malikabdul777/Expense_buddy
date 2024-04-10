@@ -77,13 +77,13 @@ const TextField = (props) => {
           {endIcon && icon === "password" ? (
             passwordHidden === true ? (
               <FaRegEye
-                size={18}
+                size={16}
                 className={styles.passwordEndIcon}
                 onClick={handleEndIconClick}
               />
             ) : (
               <FaRegEyeSlash
-                size={18}
+                size={17}
                 className={styles.passwordEndIcon}
                 onClick={handleEndIconClick}
               />

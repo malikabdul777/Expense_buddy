@@ -31,4 +31,12 @@
 .passwordEndIcon {
   color: var(--darkGrey);
   cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.passwordEndIcon:hover {
+  color: var(--black);
+  transform: scale(1.09);
+}
+.passwordEndIcon:active {
+  transform: scale(0.92);
 }

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 import Lottie from "react-lottie";
 import animationData from "./signup_animation.json";
@@ -13,6 +14,7 @@ import animationData from "./signup_animation.json";
 // Utils
 
 // APISlices
+import { useCreateUserMutation } from "@/store/apiSlices/childApiSlices/signUpApiSlice";
 
 // Slice
 
@@ -58,7 +60,29 @@ const SignUp = () => {
   const [confirmPasswordFieldType, setConfirmPasswordFieldType] =
     useState("password");
 
-  const formSubmitHandler = (data) => {
+  const [createUser, { isLoading }] = useCreateUserMutation();
+
+  const formSubmitHandler = async (data) => {
+    const response = await createUser({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
+
+    console.log(response);
+
+    if (response.data) {
+      // Show Toast
+      toast.success("Account created Successfully", {
+        position: "bottom-center",
+      });
+    } else {
+      // Show Toast
+      toast.error("Something went wrong", {
+        position: "bottom-center",
+      });
+    }
+
     console.log(data);
   };
 
@@ -124,7 +148,11 @@ const SignUp = () => {
                 return confirmPasswordFieldType;
               }}
             />
-            <Button type="submit" className={styles.signUpButton}>
+            <Button
+              type="submit"
+              className={styles.signUpButton}
+              disabled={isLoading}
+            >
               Sign Up
             </Button>
           </form>
@@ -142,7 +170,7 @@ const SignUp = () => {
       <div className={styles.imageSection}>
         {/* <img src="./signup_image.svg" alt="logo" className={styles.image} /> */}
 
-        <Lottie options={defaultLottieOptions} height={600} width={600} />
+        <Lottie options={defaultLottieOptions} height={400} width={400} />
       </div>
     </div>
   );
