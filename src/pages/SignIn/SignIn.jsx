@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 import Lottie from "react-lottie";
 import animationData from "./signIn_animation.json";
@@ -14,9 +15,14 @@ import animationData from "./signIn_animation.json";
 // Utils
 
 // APISlices
-import { useCreateUserMutation } from "@/store/apiSlices/childApiSlices/signUpApiSlice";
+import { useSignInUserMutation } from "@/store/apiSlices/childApiSlices/signInApiSlice";
 
 // Slice
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "@/store/slices/userSlice";
 
 // CustomHooks
 
@@ -32,7 +38,6 @@ import TextField from "@/components/ui/TextField/TextField";
 
 // Styles
 import styles from "./SignIn.module.css";
-import { useSignInUserMutation } from "@/store/apiSlices/childApiSlices/signInApiSlice";
 
 // Local enums
 
@@ -56,10 +61,13 @@ const SignIn = () => {
   const [passwordFieldType, setPasswordFieldType] = useState("password");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [signInUser, { isLoading }] = useSignInUserMutation();
+  const [signInUser, { isLoading, isError }] = useSignInUserMutation();
 
   const formSubmitHandler = async (data) => {
+    dispatch(signInStart());
+
     const response = await signInUser({
       email: data.email,
       password: data.password,
@@ -68,11 +76,13 @@ const SignIn = () => {
     // console.log(response);
 
     if (!response.data) {
-      toast.error(response?.error?.data.message, {
+      toast.error(response?.error?.data.message || "Something went wrong", {
         position: "bottom-center",
       });
+      dispatch(signInFailure());
     } else {
       navigate("/dashboard");
+      dispatch(signInSuccess(response.data));
     }
 
     // console.log(data);
