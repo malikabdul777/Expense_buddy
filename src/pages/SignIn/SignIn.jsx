@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 import Lottie from "react-lottie";
-import animationData from "./signup_animation.json";
+import animationData from "./signIn_animation.json";
 
 // Utils
 
@@ -31,7 +31,8 @@ import TextField from "@/components/ui/TextField/TextField";
 // Interfaces
 
 // Styles
-import styles from "./SignUp.module.css";
+import styles from "./SignIn.module.css";
+import { useSignInUserMutation } from "@/store/apiSlices/childApiSlices/signInApiSlice";
 
 // Local enums
 
@@ -41,15 +42,11 @@ import styles from "./SignUp.module.css";
 
 // Form Validation Schema
 const schema = yup.object().shape({
-  name: yup.string().required("Name is required!"),
   email: yup.string().required("Email is required!"),
   password: yup.string().required("Password is required!"),
-  passwordConfirmation: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
-const SignUp = () => {
+const SignIn = () => {
   const {
     register,
     handleSubmit,
@@ -57,37 +54,28 @@ const SignUp = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const [passwordFieldType, setPasswordFieldType] = useState("password");
-  const [confirmPasswordFieldType, setConfirmPasswordFieldType] =
-    useState("password");
 
   const navigate = useNavigate();
 
-  const [createUser, { isLoading }] = useCreateUserMutation();
+  const [signInUser, { isLoading }] = useSignInUserMutation();
 
   const formSubmitHandler = async (data) => {
-    const response = await createUser({
-      name: data.name,
+    const response = await signInUser({
       email: data.email,
       password: data.password,
     });
 
-    console.log(response);
+    // console.log(response);
 
-    if (response.data) {
-      // Show Toast
-      toast.success("Account created Successfully", {
+    if (!response.data) {
+      toast.error(response?.error?.data.message, {
         position: "bottom-center",
       });
-
-      navigate("/signin");
     } else {
-      // Show Toast
-      toast.error("Something went wrong", {
-        position: "bottom-center",
-      });
+      navigate("/dashboard");
     }
 
-    console.log(data);
+    // console.log(data);
   };
 
   const defaultLottieOptions = {
@@ -103,15 +91,9 @@ const SignUp = () => {
     <div className={styles.container}>
       <div className={styles.formSection}>
         <img src="./logo.png" alt="logo" className={styles.logo} />
-        <h2 className={styles.formHeading}>Create your account</h2>
+        <h2 className={styles.formHeading}>Login to your account</h2>
         <div className={styles.formContainer}>
           <form onSubmit={handleSubmit(formSubmitHandler)}>
-            <TextField
-              errors={errors}
-              register={register}
-              placeholder="Name"
-              name="name"
-            />
             <TextField
               errors={errors}
               register={register}
@@ -135,47 +117,31 @@ const SignUp = () => {
                 return passwordFieldType;
               }}
             />
-            <TextField
-              errors={errors}
-              register={register}
-              placeholder="Confirm your password"
-              name="passwordConfirmation"
-              type={confirmPasswordFieldType}
-              endIcon="true"
-              icon="password"
-              onEndIconClick={() => {
-                setConfirmPasswordFieldType(
-                  confirmPasswordFieldType === "password" ? "text" : "password"
-                );
-                return confirmPasswordFieldType;
-              }}
-            />
+
             <Button
               type="submit"
-              className={styles.signUpButton}
+              className={styles.signInButton}
               disabled={isLoading}
             >
-              Sign Up
+              Sign In
             </Button>
           </form>
         </div>
         <p className={styles.loginLinkText}>
           Already have an account?
           <span
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/signup")}
             className={styles.loginLinkSpan}
           >
-            Login now
+            Sign Up
           </span>
         </p>
       </div>
       <div className={styles.imageSection}>
-        {/* <img src="./signup_image.svg" alt="logo" className={styles.image} /> */}
-
         <Lottie options={defaultLottieOptions} height={400} width={400} />
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

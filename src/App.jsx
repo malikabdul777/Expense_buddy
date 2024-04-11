@@ -12,6 +12,7 @@ import Settings from "./pages/Settings/Settings";
 import Help from "./pages/Help/Help";
 import AddTransactionButton from "./components/AddTransactionButton/AddTransactionButton";
 import SignUp from "./pages/SignUp/Signup";
+import SignIn from "./pages/SignIn/SignIn";
 
 // Toast
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +35,7 @@ function App() {
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Route>
           <Route path="signup" element={<SignUp />} />
+          <Route path="signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer position="bottom-center" />
