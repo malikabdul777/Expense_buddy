@@ -10,7 +10,7 @@ import Statistics from "./pages/Statistics/Statistics";
 import Transactions from "./pages/Transactions/Transactions";
 import Configure from "./pages/Configure/Configure";
 import Help from "./pages/Help/Help";
-import SignUp from "./pages/SignUp/Signup";
+import SignUp from "./pages/SignUp/SignUp";
 import SignIn from "./pages/SignIn/SignIn";
 
 // Toast
