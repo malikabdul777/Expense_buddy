@@ -4,6 +4,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { CiBellOn } from "react-icons/ci";
 import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 // Utils
 
@@ -26,6 +27,8 @@ import styles from "./Layout.module.css";
 import "./layout.css";
 import Sidebar from "../Sidebar/Sidebar";
 import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
+import AddTransactionButton from "../AddTransactionButton/AddTransactionButton";
+import Cookies from "js-cookie";
 
 // Local enums
 
@@ -36,9 +39,16 @@ import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/tra
 const Layout = () => {
   const { pathname } = useLocation();
 
+  const { currentUser } = useSelector((state) => state.persistedReducer?.user);
+
+  // console.log(currentUser);
+
   // Fetching Transactions from server
   const { data, isSuccess, isError, isLoading, error } =
     useGetAllTransactionsQuery();
+
+  // console.log("Current User", currentUser);
+  // console.log(Cookies.get());
 
   return (
     <div className={styles.container}>
@@ -46,11 +56,13 @@ const Layout = () => {
       <Sidebar />
       <div className={styles.dashboard}>
         <div className={styles.header}>
-          <p className={styles.heading}>Welcome, Abdul!</p>
+          <p className={styles.heading}>
+            Welcome, {currentUser.user.name.split(" ")[0]}!
+          </p>
 
-          <div className={styles.notificationContainer}>
+          {/* <div className={styles.notificationContainer}>
             <CiBellOn size={25} className={styles.bellIcon} />
-          </div>
+          </div> */}
         </div>
         <div className={styles.outlet}>
           {isLoading && (
@@ -68,6 +80,7 @@ const Layout = () => {
             </div>
           )}
           {data && <Outlet />}
+          <AddTransactionButton />
         </div>
       </div>
     </div>

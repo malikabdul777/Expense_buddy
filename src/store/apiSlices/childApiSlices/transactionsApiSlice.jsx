@@ -8,6 +8,7 @@ const transactionsApi = masterApiSlice
         query: () => "/transactions",
         providesTags: ["Transaction"],
       }),
+
       createTransaction: builder.mutation({
         query: (transaction) => ({
           url: "/transactions",
@@ -16,6 +17,7 @@ const transactionsApi = masterApiSlice
         }),
         invalidatesTags: ["Transaction"],
       }),
+
       deleteTransaction: builder.mutation({
         query: (id) => ({
           url: `/transactions/${id}`,
@@ -23,6 +25,7 @@ const transactionsApi = masterApiSlice
         }),
         invalidatesTags: ["Transaction"],
       }),
+
       updateTransaction: builder.mutation({
         query: ({ id, updatedTransaction }) => ({
           url: `/transactions/${id}`,

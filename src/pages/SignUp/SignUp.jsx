@@ -87,7 +87,7 @@ const SignUp = () => {
       });
     }
 
-    console.log(data);
+    // console.log(data);
   };
 
   const defaultLottieOptions = {
@@ -165,7 +165,7 @@ const SignUp = () => {
             onClick={() => navigate("/signin")}
             className={styles.loginLinkSpan}
           >
-            Login now
+            Sign In
           </span>
         </p>
       </div>

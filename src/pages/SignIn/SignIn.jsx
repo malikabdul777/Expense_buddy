@@ -38,6 +38,8 @@ import TextField from "@/components/ui/TextField/TextField";
 
 // Styles
 import styles from "./SignIn.module.css";
+import Cookies from "js-cookie";
+import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 
 // Local enums
 
@@ -64,6 +66,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const [signInUser, { isLoading, isError }] = useSignInUserMutation();
+  const { data } = useGetAllTransactionsQuery();
 
   const formSubmitHandler = async (data) => {
     dispatch(signInStart());
@@ -73,7 +76,8 @@ const SignIn = () => {
       password: data.password,
     });
 
-    // console.log(response);
+    // Set access token in Cookie
+    Cookies.set("access_token", response.data.token);
 
     if (!response.data) {
       toast.error(response?.error?.data.message || "Something went wrong", {

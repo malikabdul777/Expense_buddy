@@ -1,0 +1,109 @@
+.container {
+  height: 85%;
+  width: 95%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px;
+}
+.heading {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.assistantContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.startChatContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -100px;
+}
+.startChatContainer h3 {
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+.startChatButton {
+  background-color: var(--accentColor) !important;
+  color: var(--white);
+}
+.chatContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 85%;
+  margin-bottom: 20px;
+}
+.chatInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+.conversationContainer {
+  flex: 8;
+  max-height: 100%;
+}
+.chatBox {
+  flex: 1;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  border: 2px solid var(--lightGrey);
+  padding: 5px 20px;
+  border-radius: 20px;
+}
+.sendIconContainer {
+  cursor: pointer;
+  background-color: var(--black);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--white);
+}
+.conversationContainer {
+  overflow-y: scroll;
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+/* Styles for assistant messages */
+.assistantMessage {
+  background-color: #e6e6e6;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  align-self: flex-start;
+}
+
+/* Styles for user messages */
+.userMessage {
+  background-color: #007bff;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  align-self: flex-end;
+}

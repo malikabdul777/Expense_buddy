@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiArrowDownRight } from "react-icons/fi";
 import { RiEqualLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 // Utils
 import { default as userData } from "../../data/data_updated";
@@ -27,9 +28,9 @@ import DashboardChart from "@/components/DashboardChart/DashboardChart";
 
 // Styles
 import styles from "./Dashboard.module.css";
-import AddTransactionButton from "@/components/AddTransactionButton/AddTransactionButton";
 import { useGetAllTransactionsQuery } from "@/store/apiSlices/childApiSlices/transactionsApiSlice";
 import moment from "moment/moment";
+import Cookies from "js-cookie";
 
 // Local enums
 

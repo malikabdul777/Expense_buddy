@@ -33,26 +33,26 @@ import { useGetAllCategoriesQuery } from "@/store/apiSlices/childApiSlices/categ
 
 const categories = data.categories;
 const columnsData = [
-  {
-    id: "view",
-    header: () => <div>View</div>,
-    cell: ({ row }) => {
-      const [viewTransactionModalOpen, setViewTransactionModalOpen] =
-        useState(false);
-
-      return (
-        <div className={`flex items-center ml-4 ${styles.viewIcon}`}>
-          <ViewTransactionModal
-            open={viewTransactionModalOpen}
-            setOpen={setViewTransactionModalOpen}
-            data={row.original}
-          />
-          <FaRegEye onClick={() => setViewTransactionModalOpen(true)} />
-        </div>
-      );
-    },
-  },
   ,
+  // {
+  //   id: "view",
+  //   header: () => <div>View</div>,
+  //   cell: ({ row }) => {
+  //     const [viewTransactionModalOpen, setViewTransactionModalOpen] =
+  //       useState(false);
+
+  //     return (
+  //       <div className={`flex items-center ml-4 ${styles.viewIcon}`}>
+  //         <ViewTransactionModal
+  //           open={viewTransactionModalOpen}
+  //           setOpen={setViewTransactionModalOpen}
+  //           data={row.original}
+  //         />
+  //         <FaRegEye onClick={() => setViewTransactionModalOpen(true)} />
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "title",
     header: () => {

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 // Utils
 
@@ -70,6 +71,11 @@ const AddTransactionButton = () => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+
+  // Slice
+  const { currentUser } = useSelector((state) => state.persistedReducer?.user);
+
+  // console.log(currentUser.user);
 
   // API Slices
   const [createTransaction] = useCreateTransactionMutation();

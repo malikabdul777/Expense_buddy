@@ -7,14 +7,16 @@ import { FaChartPie } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
 import { BsDatabase } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
-import { IoSettingsOutline } from "react-icons/io5";
-import { IoIosHelpCircleOutline } from "react-icons/io";
+import { LuBrainCircuit } from "react-icons/lu";
+import { IoMdLogOut } from "react-icons/io";
+import { useDispatch } from "react-redux";
 
 // Utils
 
 // APISlices
 
 // Slice
+import { logout } from "@/store/slices/userSlice";
 
 // CustomHooks
 
@@ -28,6 +30,7 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 
 // Styles
 import styles from "./Sidebar.module.css";
+import Cookies from "js-cookie";
 
 // Local enums
 
@@ -37,6 +40,9 @@ import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+
+  // console.log(Cookies.get());
 
   return (
     <div>
@@ -62,7 +68,7 @@ const Sidebar = () => {
             </div>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="statistics"
             className={`${styles.navLink} ${
               pathname === "/statistics" ? styles.activeNavLink : null
@@ -78,7 +84,7 @@ const Sidebar = () => {
               />
               <p className={styles.navLinkText}>Statistics</p>
             </div>
-          </NavLink>
+          </NavLink> */}
 
           <NavLink
             to="transactions"
@@ -115,12 +121,30 @@ const Sidebar = () => {
               <p className={styles.navLinkText}>Configure</p>
             </div>
           </NavLink>
+
+          {/* <NavLink
+            to="ai_assistant"
+            className={`${styles.navLink} ${
+              pathname === "/ai_assistant" ? styles.activeNavLink : null
+            }`}
+            title={"AI assistant"}
+          >
+            <div className={styles.item}>
+              <LuBrainCircuit
+                size={20}
+                className={`${
+                  pathname === "/ai_assistant" ? styles.activeIcon : null
+                }`}
+              />
+              <p className={styles.navLinkText}>AI assistant</p>
+            </div>
+          </NavLink> */}
         </div>
 
         <div className={styles.toolsContainer}>
           {/* <p className={styles.toolsHeading}>Tools</p> */}
 
-          <NavLink
+          {/* <NavLink
             to="settings"
             className={`${styles.navLink} ${
               pathname === "/settings" ? styles.activeNavLink : null
@@ -136,20 +160,21 @@ const Sidebar = () => {
               />
               <p className={styles.navLinkText}>Settings</p>
             </div>
-          </NavLink>
+          </NavLink> */}
           <NavLink
-            to="/help"
-            className={`${styles.navLink} ${
-              pathname === "/help" ? styles.activeNavLink : null
-            }`}
-            title={"Help"}
+            to="/signin"
+            className={`${styles.navLink} errorColor`}
+            title={"LogOut"}
+            onClick={() => {
+              Cookies.remove("access_token", { path: "" });
+
+              dispatch(logout());
+              dispatch(api.util.resetApiState());
+            }}
           >
             <div className={styles.item}>
-              <IoIosHelpCircleOutline
-                size={20}
-                className={`${pathname === "/help" ? styles.activeIcon : null}`}
-              />
-              <p className={styles.navLinkText}>Help</p>
+              <IoMdLogOut size={20} className={"errorColor"} />
+              <p className={styles.navLinkText}>Logout</p>
             </div>
           </NavLink>
         </div>
