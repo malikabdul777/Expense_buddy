@@ -162,7 +162,7 @@ const Sidebar = () => {
             </div>
           </NavLink> */}
           <NavLink
-            to="/signin"
+            to="/"
             className={`${styles.navLink} errorColor`}
             title={"LogOut"}
             onClick={() => {
